@@ -9,7 +9,7 @@ export function Footer() {
           {/* Brand Column */}
           <div>
             <img
-              src="/logos/TH_logo_black.png"
+              src="/logos/TH_isotype_black.png"
               alt="TH Furniture Logo"
               className="h-24 w-auto object-contain select-none"
             />

@@ -22,7 +22,7 @@ export function Navbar() {
             <img
               src="/logos/TH_logo_black.png"
               alt="TH Furniture"
-              className="h-16 w-auto"
+              className="h-20 w-auto"
             />
           </Link>
 
