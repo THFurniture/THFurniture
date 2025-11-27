@@ -1,4 +1,18 @@
+import { useSearchParams } from "react-router";
+
 export function ContactForm() {
+  const [searchParams] = useSearchParams();
+
+  // Read product inquiry context from URL params
+  const productName = searchParams.get("product");
+  const fabricName = searchParams.get("fabric");
+  const fabricCollection = searchParams.get("collection");
+
+  // Pre-fill message with product info if coming from product page
+  const defaultMessage = productName
+    ? `I'm interested in the ${productName}${fabricName ? ` in ${fabricName} (${fabricCollection})` : ""}.`
+    : "";
+
   return (
     <main className="min-h-screen bg-[#F9F7F4] pt-24">
       {/* Main content area - two columns */}
@@ -25,146 +39,169 @@ export function ContactForm() {
         {/* Right side - Form */}
         <div className="bg-[#F9F7F4] pb-16 px-6 md:px-12 flex flex-col justify-start">
           <div className="max-w-lg">
-        {/* Header */}
-        <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#2E2C2A] mb-4 pt-10">
-          Get in Touch
-        </h1>
-        <p className="text-base text-[#A0685F] mb-12">
-          Interested in a piece? Have a question about materials? We'd love to hear from you.
-        </p>
+            {/* Header */}
+            <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#2E2C2A] mb-4 pt-10">
+              Get in Touch
+            </h1>
+            <p className="text-base text-[#A0685F] mb-8">
+              Interested in a piece? Have a question about materials? We'd love to hear from you.
+            </p>
 
-        {/* Form */}
-        <form className="space-y-6 mb-12">
-          {/* First Name and Last Name - Two columns */}
-          <div className="grid grid-cols-2 gap-6">
-            <div>
-              <label
-                htmlFor="firstName"
-                className="block text-sm font-medium text-[#2E2C2A] mb-2"
-              >
-                First name
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                name="firstName"
-                placeholder="Jane"
-                required
-                className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
-              />
+            {/* Product Inquiry Context Banner */}
+            {productName && (
+              <div className="mb-8 p-4 bg-[#F0EEE9] rounded-lg border border-[#E0DDD6]">
+                <div className="flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#2E2C2A] flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm text-[#6B6965] mb-1">Inquiring about:</p>
+                    <p className="font-serif font-semibold text-[#2E2C2A] text-lg">{productName}</p>
+                    {fabricName && (
+                      <p className="text-sm text-[#8B7355] mt-1">
+                        Fabric: {fabricName} <span className="text-[#A0685F]">({fabricCollection})</span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Form */}
+            <form className="space-y-6 mb-12">
+              {/* First Name and Last Name - Two columns */}
+              <div className="grid grid-cols-2 gap-6">
+                <div>
+                  <label
+                    htmlFor="firstName"
+                    className="block text-sm font-medium text-[#2E2C2A] mb-2"
+                  >
+                    First name
+                  </label>
+                  <input
+                    type="text"
+                    id="firstName"
+                    name="firstName"
+                    placeholder="Jane"
+                    required
+                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                  />
+                </div>
+                <div>
+                  <label
+                    htmlFor="lastName"
+                    className="block text-sm font-medium text-[#2E2C2A] mb-2"
+                  >
+                    Last name
+                  </label>
+                  <input
+                    type="text"
+                    id="lastName"
+                    name="lastName"
+                    placeholder="Doe"
+                    required
+                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                  />
+                </div>
+              </div>
+
+              {/* Email */}
+              <div>
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-[#2E2C2A] mb-2"
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="jane@example.com"
+                  required
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                />
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label
+                  htmlFor="phone"
+                  className="block text-sm font-medium text-[#2E2C2A] mb-2"
+                >
+                  Phone (optional)
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  placeholder="+1 (555) 000-0000"
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                />
+              </div>
+
+              {/* Message */}
+              <div>
+                <label
+                  htmlFor="message"
+                  className="block text-sm font-medium text-[#2E2C2A] mb-2"
+                >
+                  Message
+                </label>
+                <textarea
+                  id="message"
+                  name="message"
+                  defaultValue={defaultMessage}
+                  placeholder="Tell us about the piece you are interested in..."
+                  rows={4}
+                  required
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 resize-none transition-colors"
+                ></textarea>
+              </div>
+
+              {/* Submit Button */}
+              <div className="pt-6">
+                <button
+                  type="submit"
+                  className="w-full px-6 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors"
+                >
+                  Send Message
+                </button>
+              </div>
+            </form>
+
+            {/* Direct Contact Section */}
+            <div className="border-t border-[#E0DDD6] pt-8 mb-8">
+              <h3 className="text-lg font-serif font-bold text-[#2E2C2A] mb-4">
+                Direct Contact
+              </h3>
+              <div className="space-y-2">
+                <a
+                  href="mailto:hello@thfurniture.com"
+                  className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
+                >
+                  hello@thfurniture.com
+                </a>
+                <a
+                  href="tel:+15551234567"
+                  className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
+                >
+                  +1 (555) 123-4567
+                </a>
+              </div>
             </div>
+
+            {/* Hours Section */}
             <div>
-              <label
-                htmlFor="lastName"
-                className="block text-sm font-medium text-[#2E2C2A] mb-2"
-              >
-                Last name
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                placeholder="Doe"
-                required
-                className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
-              />
+              <h3 className="text-lg font-serif font-bold text-[#2E2C2A] mb-4">
+                Hours
+              </h3>
+              <p className="text-sm text-[#A0685F]">
+                Mon - Fri: 9am - 6pm EST
+              </p>
             </div>
-          </div>
-
-          {/* Email */}
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium text-[#2E2C2A] mb-2"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              placeholder="jane@example.com"
-              required
-              className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
-            />
-          </div>
-
-          {/* Phone */}
-          <div>
-            <label
-              htmlFor="phone"
-              className="block text-sm font-medium text-[#2E2C2A] mb-2"
-            >
-              Phone (optional)
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              placeholder="+1 (555) 000-0000"
-              className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
-            />
-          </div>
-
-          {/* Message */}
-          <div>
-            <label
-              htmlFor="message"
-              className="block text-sm font-medium text-[#2E2C2A] mb-2"
-            >
-              Message
-            </label>
-            <textarea
-              id="message"
-              name="message"
-              placeholder="Tell us about the piece you are interested in..."
-              rows={4}
-              required
-              className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 resize-none transition-colors"
-            ></textarea>
-          </div>
-
-          {/* Submit Button */}
-          <div className="pt-6">
-            <button
-              type="submit"
-              className="w-full px-6 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors"
-            >
-              Send Message
-            </button>
-          </div>
-        </form>
-
-        {/* Direct Contact Section */}
-        <div className="border-t border-[#E0DDD6] pt-8 mb-8">
-          <h3 className="text-lg font-serif font-bold text-[#2E2C2A] mb-4">
-            Direct Contact
-          </h3>
-          <div className="space-y-2">
-            <a
-              href="mailto:hello@thfurniture.com"
-              className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
-            >
-              hello@thfurniture.com
-            </a>
-            <a
-              href="tel:+15551234567"
-              className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
-            >
-              +1 (555) 123-4567
-            </a>
-          </div>
-        </div>
-
-        {/* Hours Section */}
-        <div>
-          <h3 className="text-lg font-serif font-bold text-[#2E2C2A] mb-4">
-            Hours
-          </h3>
-          <p className="text-sm text-[#A0685F]">
-            Mon - Fri: 9am - 6pm EST
-          </p>
-          </div>
           </div>
         </div>
       </div>

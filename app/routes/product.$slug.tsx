@@ -1,7 +1,11 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router";
+import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
 import { getProductBySlug, getProductsByCategory } from "~/data/furniture-data";
 import { ProductCard } from "~/components/portfolio/product-card";
+import { FabricSelector } from "~/components/product/fabric-selector";
+import { fabrics, getDefaultFabric, getProductImageForFabric, type Fabric } from "~/data/fabric-data";
 
 function ImagePlaceholder({ size = "large" }: { size?: "large" | "small" }) {
   const dimensions = size === "large" ? "w-32 h-32" : "w-16 h-16";
@@ -41,7 +45,7 @@ function ImagePlaceholder({ size = "large" }: { size?: "large" | "small" }) {
               strokeLinecap="round"
               strokeLinejoin="round"
               strokeWidth={1.5}
-              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
             />
           </svg>
         </div>
@@ -53,6 +57,8 @@ function ImagePlaceholder({ size = "large" }: { size?: "large" | "small" }) {
 export default function ProductPage() {
   const { slug } = useParams();
   const product = getProductBySlug(slug || "");
+  const [selectedFabric, setSelectedFabric] = useState<Fabric>(getDefaultFabric());
+  const [imageError, setImageError] = useState(false);
 
   if (!product) {
     return (
@@ -81,6 +87,18 @@ export default function ProductPage() {
   const relatedProducts = getProductsByCategory(product.category)
     .filter((p) => p.slug !== product.slug)
     .slice(0, 3);
+
+  // Generate product image path based on selected fabric
+  const productImagePath = getProductImageForFabric(product.slug, selectedFabric.id);
+
+  // Build inquiry URL with product and fabric info
+  const inquiryUrl = `/contact?product=${encodeURIComponent(product.name)}&fabric=${encodeURIComponent(selectedFabric.name)}&collection=${encodeURIComponent(selectedFabric.collection)}`;
+
+  // Handle fabric selection and reset image error
+  const handleFabricSelect = (fabric: Fabric) => {
+    setSelectedFabric(fabric);
+    setImageError(false);
+  };
 
   return (
     <>
@@ -120,13 +138,41 @@ export default function ProductPage() {
 
           {/* Product Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-            {/* Image */}
-            <div className="relative aspect-square rounded-lg overflow-hidden">
-              <ImagePlaceholder size="large" />
+            {/* Main Product Image */}
+            <div className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE]">
+              <AnimatePresence mode="wait">
+                {!imageError ? (
+                  <motion.img
+                    key={productImagePath}
+                    src={productImagePath}
+                    alt={`${product.name} in ${selectedFabric.name}`}
+                    className="w-full h-full object-cover"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                    onError={() => setImageError(true)}
+                  />
+                ) : (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="w-full h-full"
+                  >
+                    <ImagePlaceholder size="large" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              
+              {/* Fabric indicator badge */}
+              <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
+                <p className="text-xs text-[#6B6965]">Shown in</p>
+                <p className="text-sm font-medium text-[#2E2C2A]">{selectedFabric.name}</p>
+              </div>
             </div>
 
             {/* Info */}
-            <div className="flex flex-col justify-center">
+            <div className="flex flex-col">
               <p className="text-sm text-[#8B7355] uppercase tracking-wide mb-4">
                 {product.category}
               </p>
@@ -137,10 +183,19 @@ export default function ProductPage() {
                 {product.description}
               </p>
 
+              {/* Fabric Selector */}
+              <div className="mb-8">
+                <FabricSelector
+                  fabrics={fabrics}
+                  selectedFabric={selectedFabric}
+                  onSelect={handleFabricSelect}
+                />
+              </div>
+
               {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 mt-auto">
                 <Link
-                  to="/contact"
+                  to={inquiryUrl}
                   className="inline-flex items-center justify-center px-8 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors"
                 >
                   Inquire About This Piece
@@ -173,4 +228,3 @@ export default function ProductPage() {
     </>
   );
 }
-
