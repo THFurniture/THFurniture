@@ -18,7 +18,7 @@ export function Intro() {
 
           {/* Right - Content */}
           <div className="flex flex-col justify-center">
-            <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#2E2C2A] mb-6 leading-tight">
+            <h2 className="text-4xl md:text-5xl font-serif font-regular text-[#2E2C2A] mb-6 leading-tight">
               Quiet Luxury for Everyday Living.
             </h2>
 
