@@ -194,7 +194,7 @@ export default function ProductPage() {
               </div>
 
               {/* CTA */}
-              <div className="flex flex-col sm:flex-row gap-4 mt-auto">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Link
                   to={inquiryUrl}
                   className="inline-flex items-center justify-center px-8 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors"
