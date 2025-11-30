@@ -1,64 +1,37 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
 import { getProductBySlug, getProductsByCategory } from "~/data/furniture-data";
 import { ProductCard } from "~/components/portfolio/product-card";
 import { FabricSelector } from "~/components/product/fabric-selector";
-import { fabrics, getDefaultFabric, getProductImageForFabric, type Fabric } from "~/data/fabric-data";
-
-function ImagePlaceholder({ size = "large" }: { size?: "large" | "small" }) {
-  const dimensions = size === "large" ? "w-32 h-32" : "w-16 h-16";
-  const innerDimensions = size === "large" ? "w-20 h-20" : "w-10 h-10";
-  const iconSize = size === "large" ? "w-10 h-10" : "w-6 h-6";
-  const iconInnerSize = size === "large" ? "w-5 h-5" : "w-3 h-3";
-  const lineSize = size === "large" ? "h-32" : "h-16";
-  const lineWidth = size === "large" ? "w-32" : "w-16";
-
-  return (
-    <div className="absolute inset-0 flex items-center justify-center bg-[#E5E3DE]">
-      <div className="relative">
-        <div
-          className={`${dimensions} border border-[#C5C2BA] rounded-full opacity-30`}
-        ></div>
-        <div
-          className={`${innerDimensions} border border-[#C5C2BA] rounded-full opacity-30 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2`}
-        ></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div
-            className={`absolute top-0 left-1/2 transform -translate-x-1/2 w-px ${lineSize} bg-[#C5C2BA]/20`}
-          ></div>
-          <div
-            className={`absolute top-1/2 left-0 transform -translate-y-1/2 ${lineWidth} h-px bg-[#C5C2BA]/20`}
-          ></div>
-        </div>
-        <div
-          className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 ${iconSize} rounded border border-[#C5C2BA]/40 flex items-center justify-center`}
-        >
-          <svg
-            className={`${iconInnerSize} text-[#C5C2BA]`}
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={1.5}
-              d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-            />
-          </svg>
-        </div>
-      </div>
-    </div>
-  );
-}
+import { fabrics, getProductImageForFabric, type Fabric } from "~/data/fabric-data";
 
 export default function ProductPage() {
   const { slug } = useParams();
   const product = getProductBySlug(slug || "");
-  const [selectedFabric, setSelectedFabric] = useState<Fabric>(getDefaultFabric());
-  const [imageError, setImageError] = useState(false);
+  const [selectedFabric, setSelectedFabric] = useState<Fabric | null>(null);
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+
+  // Reset fabric selection when product changes
+  useEffect(() => {
+    setSelectedFabric(null);
+  }, [slug]);
+
+  // Close lightbox on ESC key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setLightboxImage(null);
+    };
+    if (lightboxImage) {
+      document.addEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [lightboxImage]);
 
   if (!product) {
     return (
@@ -88,17 +61,16 @@ export default function ProductPage() {
     .filter((p) => p.slug !== product.slug)
     .slice(0, 3);
 
-  // Generate product image path based on selected fabric
-  const productImagePath = getProductImageForFabric(product.slug, selectedFabric.id);
+  // Main image: use fabric-specific if selected, otherwise default product image
+  const mainImage = selectedFabric
+    ? getProductImageForFabric(product.slug, selectedFabric.id)
+    : product.images[0];
+  const additionalImages = product.images.slice(1);
 
   // Build inquiry URL with product and fabric info
-  const inquiryUrl = `/contact?product=${encodeURIComponent(product.name)}&fabric=${encodeURIComponent(selectedFabric.name)}&collection=${encodeURIComponent(selectedFabric.collection)}`;
-
-  // Handle fabric selection and reset image error
-  const handleFabricSelect = (fabric: Fabric) => {
-    setSelectedFabric(fabric);
-    setImageError(false);
-  };
+  const inquiryUrl = selectedFabric
+    ? `/contact?product=${encodeURIComponent(product.name)}&fabric=${encodeURIComponent(selectedFabric.name)}&collection=${encodeURIComponent(selectedFabric.collection)}`
+    : `/contact?product=${encodeURIComponent(product.name)}`;
 
   return (
     <>
@@ -138,37 +110,66 @@ export default function ProductPage() {
 
           {/* Product Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
-            {/* Main Product Image */}
-            <div className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE]">
-              <AnimatePresence mode="wait">
-                {!imageError ? (
+            {/* Images Column */}
+            <div className="space-y-4">
+              {/* Main Product Image */}
+              <button
+                onClick={() => setLightboxImage(mainImage)}
+                className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE] w-full cursor-zoom-in group"
+              >
+                <AnimatePresence mode="wait">
                   <motion.img
-                    key={productImagePath}
-                    src={productImagePath}
-                    alt={`${product.name} in ${selectedFabric.name}`}
+                    key={mainImage}
+                    src={mainImage}
+                    alt={selectedFabric ? `${product.name} in ${selectedFabric.name}` : product.name}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.3 }}
-                    onError={() => setImageError(true)}
                   />
-                ) : (
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="w-full h-full"
-                  >
-                    <ImagePlaceholder size="large" />
-                  </motion.div>
+                </AnimatePresence>
+                
+                {/* Zoom indicator */}
+                <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                  <svg className="w-5 h-5 text-[#2E2C2A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </div>
+                
+                {/* Fabric indicator badge - only show when fabric is selected */}
+                {selectedFabric && (
+                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
+                    <p className="text-xs text-[#6B6965]">Selected fabric</p>
+                    <p className="text-sm font-medium text-[#2E2C2A]">{selectedFabric.name}</p>
+                  </div>
                 )}
-              </AnimatePresence>
-              
-              {/* Fabric indicator badge */}
-              <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
-                <p className="text-xs text-[#6B6965]">Shown in</p>
-                <p className="text-sm font-medium text-[#2E2C2A]">{selectedFabric.name}</p>
-              </div>
+              </button>
+
+              {/* Additional Images Gallery */}
+              {additionalImages.length > 0 && (
+                <div className="grid grid-cols-2 gap-4">
+                  {additionalImages.map((image, index) => (
+                    <button
+                      key={image}
+                      onClick={() => setLightboxImage(image)}
+                      className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE] cursor-zoom-in group"
+                    >
+                      <img
+                        src={image}
+                        alt={`${product.name} - View ${index + 2}`}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Zoom indicator */}
+                      <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm p-1.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
+                        <svg className="w-4 h-4 text-[#2E2C2A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                        </svg>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* Info */}
@@ -188,7 +189,7 @@ export default function ProductPage() {
                 <FabricSelector
                   fabrics={fabrics}
                   selectedFabric={selectedFabric}
-                  onSelect={handleFabricSelect}
+                  onSelect={setSelectedFabric}
                 />
               </div>
 
@@ -225,6 +226,46 @@ export default function ProductPage() {
           )}
         </div>
       </main>
+
+      {/* Lightbox Modal */}
+      <AnimatePresence>
+        {lightboxImage && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+            onClick={() => setLightboxImage(null)}
+          >
+            {/* Close button */}
+            <button
+              onClick={() => setLightboxImage(null)}
+              className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition-colors"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            {/* Image */}
+            <motion.img
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              src={lightboxImage}
+              alt={product.name}
+              className="max-w-full max-h-[90vh] object-contain rounded-lg"
+              onClick={(e) => e.stopPropagation()}
+            />
+
+            {/* Navigation hint */}
+            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+              Click outside or press ESC to close
+            </p>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
