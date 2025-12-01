@@ -180,7 +180,13 @@ export default function ProductPage() {
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#2E2C2A] mb-6">
                 {product.name}
               </h1>
-              <p className="text-lg text-[#6B6965] mb-8 leading-relaxed">
+              {product.dimensions && (
+                <div className="mb-6">
+                  <p className="text-sm text-[#8B7355] uppercase tracking-wide mb-2">Dimensions</p>
+                  <p className="text-base text-[#6B6965]">{product.dimensions}</p>
+                </div>
+              )}
+              <p className="text-lg text-[#6B6965] mb-8 leading-relaxed whitespace-pre-line text-justify">
                 {product.description}
               </p>
 
