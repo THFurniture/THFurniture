@@ -2,16 +2,14 @@ import { Button } from "~/ui/button";
 
 export function Hero() {
   return (
-    <section className="relative w-full min-h-screen bg-[#D9D6CE] pt-24 flex items-center overflow-hidden">
+    <section className="relative w-full min-h-screen pt-24 flex items-center overflow-hidden">
       {/* Background image */}
       <div className="absolute inset-0 overflow-hidden">
         <img
           src="/other/home-hero.jpg"
           alt="Rome Ottoman"
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover"
         />
-        {/* Overlay for better text readability */}
-        <div className="absolute inset-0 bg-[#D9D6CE] opacity-10"></div>
       </div>
 
       {/* Content */}

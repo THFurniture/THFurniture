@@ -17,7 +17,7 @@ export function FeaturedCategories() {
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#2E2C2A] mb-4">
+            <h2 className="text-3xl md:text-4xl font-serif font-normal text-[#2E2C2A] mb-4">
               Curated Categories
             </h2>
             <p className="text-[#6B6965] max-w-md">

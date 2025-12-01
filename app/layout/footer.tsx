@@ -9,9 +9,9 @@ export function Footer() {
           {/* Brand Column */}
           <div>
             <img
-              src="/logos/TH_isotype_black.png"
+              src="/logos/TH_logo_black.png"
               alt="TH Furniture Logo"
-              className="h-24 w-auto object-contain select-none"
+              className="mb-4 h-24 w-auto object-contain select-none"
             />
             <p className="text-sm text-[#6B6965] leading-relaxed">
               Curating exceptional furniture for contemporary living. Designed for life, crafted for longevity.
@@ -86,10 +86,17 @@ export function Footer() {
       </div>
 
       {/* Middle Section - Logo */}
-      <div className="w-full py-20">
-        <h2 className="text-[clamp(3rem,10vw,15rem)] font-serif font-light text-[#D9D6CE] select-none leading-none text-center">
-          TH FURNITURE
-        </h2>
+      <div className="w-full py-12">
+        <div className="flex flex-col items-center justify-center gap-12">
+          <img
+            src="/other/signature.webp"
+            alt="Firma"
+            className="h-32 md:h-72 w-auto object-contain select-none opacity-70"
+          />
+          <h2 className="text-[clamp(2rem,2vw,4rem)] font-serif font-light text-[#D9D6CE] select-none leading-none text-center">
+            TH FURNITURE
+          </h2>
+        </div>
       </div>
 
       {/* Bottom Section */}
