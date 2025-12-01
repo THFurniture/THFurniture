@@ -5,7 +5,7 @@ import { categories } from "~/data/furniture-data";
 const categoryImages: Record<string, string> = {
   sofas: "/furniture/hannah_sofa/hannah-sofa.webp",
   seating: "/furniture/alice_chair/alice-chair-3.webp",
-  ottomans: "/furniture/monaco_ottoman/monaco-ottoman-2.webp",
+  ottomans: "/furniture/rome_ottoman/rome-ottoman.webp",
   tables: "/furniture/aria_side_table/aria-side-table.webp",
   beds: "/furniture/th_signature_bed/th-signature-bed.webp",
 };

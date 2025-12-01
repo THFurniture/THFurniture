@@ -6,7 +6,7 @@ export function Hero() {
       {/* Background image */}
       <div className="absolute inset-0 overflow-hidden">
         <img
-          src="/furniture/rome_ottoman/rome-ottoman-3.webp"
+          src="/other/home-hero.jpg"
           alt="Rome Ottoman"
           className="w-full h-full object-cover opacity-60"
         />
