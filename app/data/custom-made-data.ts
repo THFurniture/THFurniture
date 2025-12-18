@@ -58,7 +58,7 @@ export const customProducts: CustomProduct[] = [
     category: "storage",
     description:
       "The Verona Nightstand blends sculptural curves with a sleek, modern silhouette. Its glossy finish is complemented by warm gold accents and a stone-inspired top, creating an elegant balance of luxury and minimalism. With smooth, rounded edges and discreet storage, it adds a refined, contemporary touch to any bedroom.",
-    images: generateImages("verona_nightstand", 1)
+    images: generateImages("verona_nightstand", 2)
   },
   {
     slug: "palermo_bed",
@@ -82,7 +82,7 @@ export const customProducts: CustomProduct[] = [
     category: "beds",
     description:
       "The Enzo Bed brings contemporary elegance to the forefront with its striking blue upholstered headboard framed by soft gold accents. Clean vertical paneling adds refined structure, while the smooth, rounded base introduces a modern, sculptural touch. Designed with a luxe hotel-inspired aesthetic, this bed creates a calm, sophisticated atmosphere—perfect for elevating any primary bedroom into a serene retreat.",
-    images: generateImages("enzo_bed", 1)
+    images: generateImages("enzo_bed", 2)
   },
   {
     slug: "nova_console",
@@ -114,7 +114,7 @@ export const customProducts: CustomProduct[] = [
     category: "beds",
     description:
       "The Heaven Bed embodies soft luxury with its warm neutral palette and gently contoured headboard. Vertical channel detailing adds subtle texture, while the smooth leather-wrapped frame creates a clean, modern silhouette. Paired with understated elegance and a serene aesthetic, the Solace Bed brings comfort, sophistication, and a calming presence to any primary bedroom.",
-    images: generateImages("heaven_bed", 1)
+    images: generateImages("heaven_bed", 2)
   },
   {
     slug: "seren_nightstand",
@@ -154,7 +154,7 @@ export const customProducts: CustomProduct[] = [
     category: "beds",
     description:
       "The Monarch Bed embodies refined sophistication with its sculpted winged headboard and subtle quilted detailing. Upholstered in a soft, elegant neutral tone, it creates a serene centerpiece anchored by clean lines and warm metallic accents. The design balances luxury and calm simplicity, offering a timeless look that elevates any modern bedroom with quiet elegance.",
-    images: generateImages("monarch_bed", 1)
+    images: generateImages("monarch_bed", 2)
   },
   {
     slug: "saville_bed",
@@ -258,7 +258,7 @@ export const customProducts: CustomProduct[] = [
     category: "collections",
     description:
       "The Kora Collection blends contemporary elegance with sculptural warmth. Soft suede-inspired upholstery pairs effortlessly with rich, high-gloss wood panels, creating a refined contrast that feels modern yet timeless. Curved accent chairs, warm bronze details, and a statement patterned coffee table complete the ensemble, offering a space that is both inviting and artfully composed. Perfect for interiors seeking sophistication with a calm, contemporary edge.",
-    images: generateImages("kora_collection", 1)
+    images: generateImages("kora_collection", 2)
   },
   {
     slug: "solis_lounge_chair",
