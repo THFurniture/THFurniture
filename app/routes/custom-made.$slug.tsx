@@ -2,21 +2,13 @@ import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
-import { getProductBySlug, getProductsByCategory } from "~/data/furniture-data";
-import { ProductCard } from "~/components/catalog/product-card";
-import { FabricSelector } from "~/components/product/fabric-selector";
-import { fabrics, getProductImageForFabric, type Fabric } from "~/data/fabric-data";
+import { getCustomProductBySlug, getCustomProductsByCategory } from "~/data/custom-made-data";
+import { CustomProductCard } from "~/components/catalog/custom-product-card";
 
-export default function ProductPage() {
+export default function CustomProductPage() {
   const { slug } = useParams();
-  const product = getProductBySlug(slug || "");
-  const [selectedFabric, setSelectedFabric] = useState<Fabric | null>(null);
+  const product = getCustomProductBySlug(slug || "");
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
-
-  // Reset fabric selection when product changes
-  useEffect(() => {
-    setSelectedFabric(null);
-  }, [slug]);
 
   // Close lightbox on ESC key
   useEffect(() => {
@@ -43,13 +35,13 @@ export default function ProductPage() {
               Product Not Found
             </h1>
             <p className="text-[#6B6965] mb-8">
-              The product you're looking for doesn't exist.
+              The product you're looking for doesn't exist in our Custom Made collection.
             </p>
             <Link
-              to="/catalog"
+              to="/custom-made"
               className="inline-flex text-[#2E2C2A] font-semibold border-b-2 border-[#2E2C2A] pb-1 hover:opacity-60 transition-opacity"
             >
-              ← Back to Catalog
+              ← Back to Custom Made
             </Link>
           </div>
         </main>
@@ -57,20 +49,15 @@ export default function ProductPage() {
     );
   }
 
-  const relatedProducts = getProductsByCategory(product.category)
+  const relatedProducts = getCustomProductsByCategory(product.category)
     .filter((p) => p.slug !== product.slug)
     .slice(0, 3);
 
-  // Main image: use fabric-specific if selected, otherwise default product image
-  const mainImage = selectedFabric
-    ? getProductImageForFabric(product.slug, selectedFabric.id)
-    : product.images[0];
+  const mainImage = product.images[0];
   const additionalImages = product.images.slice(1);
 
-  // Build inquiry URL with product and fabric info
-  const inquiryUrl = selectedFabric
-    ? `/contact?product=${encodeURIComponent(product.name)}&fabric=${encodeURIComponent(selectedFabric.name)}&collection=${encodeURIComponent(selectedFabric.collection)}`
-    : `/contact?product=${encodeURIComponent(product.name)}`;
+  // Build inquiry URL with product info
+  const inquiryUrl = `/contact?product=${encodeURIComponent(product.name)}&source=custom-made`;
 
   return (
     <>
@@ -88,16 +75,16 @@ export default function ProductPage() {
               <li>/</li>
               <li>
                 <Link
-                  to="/catalog"
+                  to="/custom-made"
                   className="hover:text-[#2E2C2A] transition-colors"
                 >
-                  Catalog
+                  Custom Made
                 </Link>
               </li>
               <li>/</li>
               <li>
                 <Link
-                  to={`/catalog?category=${product.category}`}
+                  to={`/custom-made?category=${product.category}`}
                   className="hover:text-[#2E2C2A] transition-colors capitalize"
                 >
                   {product.category}
@@ -117,18 +104,15 @@ export default function ProductPage() {
                 onClick={() => setLightboxImage(mainImage)}
                 className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE] w-full cursor-zoom-in group"
               >
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={mainImage}
-                    src={mainImage}
-                    alt={selectedFabric ? `${product.name} in ${selectedFabric.name}` : product.name}
-                    className="w-full h-full object-cover"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </AnimatePresence>
+                <motion.img
+                  key={mainImage}
+                  src={mainImage}
+                  alt={product.name}
+                  className="w-full h-full object-cover"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                />
                 
                 {/* Zoom indicator */}
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
@@ -136,14 +120,6 @@ export default function ProductPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                   </svg>
                 </div>
-                
-                {/* Fabric indicator badge - only show when fabric is selected */}
-                {selectedFabric && (
-                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
-                    <p className="text-xs text-[#6B6965]">Selected fabric</p>
-                    <p className="text-sm font-medium text-[#2E2C2A]">{selectedFabric.name}</p>
-                  </div>
-                )}
               </button>
 
               {/* Additional Images Gallery */}
@@ -180,24 +156,9 @@ export default function ProductPage() {
               <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#2E2C2A] mb-6">
                 {product.name}
               </h1>
-              {product.dimensions && (
-                <div className="mb-6">
-                  <p className="text-sm text-[#8B7355] uppercase tracking-wide mb-2">Dimensions</p>
-                  <p className="text-base text-[#6B6965]">{product.dimensions}</p>
-                </div>
-              )}
               <p className="text-lg text-[#6B6965] mb-8 leading-relaxed whitespace-pre-line text-justify">
                 {product.description}
               </p>
-
-              {/* Fabric Selector */}
-              <div className="mb-8">
-                <FabricSelector
-                  fabrics={fabrics}
-                  selectedFabric={selectedFabric}
-                  onSelect={setSelectedFabric}
-                />
-              </div>
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
@@ -208,10 +169,10 @@ export default function ProductPage() {
                   Inquire About This Piece
                 </Link>
                 <Link
-                  to="/catalog"
+                  to="/custom-made"
                   className="inline-flex items-center justify-center px-8 py-3 border border-[#2E2C2A] text-[#2E2C2A] font-semibold hover:bg-[#F0EEE9] transition-colors"
                 >
-                  View All Products
+                  View Custom Collection
                 </Link>
               </div>
             </div>
@@ -221,11 +182,11 @@ export default function ProductPage() {
           {relatedProducts.length > 0 && (
             <section>
               <h2 className="text-2xl md:text-3xl font-serif font-bold text-[#2E2C2A] mb-8">
-                Related Pieces
+                Related Custom Pieces
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 {relatedProducts.map((relatedProduct) => (
-                  <ProductCard key={relatedProduct.slug} product={relatedProduct} />
+                  <CustomProductCard key={relatedProduct.slug} product={relatedProduct} />
                 ))}
               </div>
             </section>

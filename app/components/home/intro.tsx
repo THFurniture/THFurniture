@@ -27,10 +27,10 @@ export function Intro() {
             </p>
 
             <Link
-              to="/portfolio"
+              to="/catalog"
               className="inline-flex text-[#2E2C2A] font-semibold border-b-2 border-[#2E2C2A] pb-1 hover:opacity-60 transition-opacity w-fit"
             >
-              Explore our portfolio
+              Explore our catalog
             </Link>
           </div>
         </div>

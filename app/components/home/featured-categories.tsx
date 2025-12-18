@@ -4,7 +4,7 @@ import { categories } from "~/data/furniture-data";
 // Map category IDs to image paths
 const categoryImages: Record<string, string> = {
   sofas: "/furniture/hannah_sofa/hannah-sofa.webp",
-  seating: "/furniture/alice_chair/alice-chair-3.webp",
+  seating: "/furniture/alice_lounge_chair/alice-lounge-chair.webp",
   ottomans: "/furniture/rome_ottoman/rome-ottoman.webp",
   tables: "/furniture/aria_side_table/aria-side-table.webp",
   beds: "/furniture/th_signature_bed/th-signature-bed.webp",
@@ -26,7 +26,7 @@ export function FeaturedCategories() {
             </p>
           </div>
           <Link
-            to="/portfolio"
+            to="/catalog"
             className="mt-6 md:mt-0 inline-flex items-center gap-2 text-[#6B6965] font-medium hover:text-[#2E2C2A] transition-colors border-b border-[#6B6965] hover:border-[#2E2C2A] pb-1"
           >
             View all categories
@@ -39,7 +39,7 @@ export function FeaturedCategories() {
           {categories.map((category) => (
             <Link
               key={category.id}
-              to={`/portfolio?category=${category.id}`}
+              to={`/catalog?category=${category.id}`}
               className="group relative aspect-[3/4] overflow-hidden rounded-lg cursor-pointer"
             >
               {/* Background gradient */}

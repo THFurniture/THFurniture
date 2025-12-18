@@ -14,7 +14,7 @@ export function ContactForm() {
     : "";
 
   return (
-    <main className="min-h-screen bg-[#F9F7F4] pt-24">
+    <main className="min-h-screen bg-[#F9F7F4] pt-28">
       {/* Main content area - two columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
         {/* Left side - Image + Quote */}

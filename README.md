@@ -33,7 +33,7 @@ app/
 │   ├── contact/
 │   │   └── contact-form.tsx    # Contact form with inquiry context
 │   ├── home/                   # Homepage sections
-│   ├── portfolio/              # Product listing components
+│   ├── catalog/                # Product listing components
 │   └── layout/                 # Navigation and layout
 └── styles/                     # Global styles and Tailwind config
 

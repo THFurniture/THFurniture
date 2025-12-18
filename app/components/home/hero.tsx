@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import { Button } from "~/ui/button";
 
 export function Hero() {
@@ -29,12 +30,16 @@ export function Hero() {
 
           {/* Buttons */}
           <div className="flex gap-4">
-            <Button variant="secondary" size="md">
-              Explore Collection
-            </Button>
-            <Button variant="primary" size="md">
-              Contact Us
-            </Button>
+            <Link to="/catalog">
+              <Button variant="secondary" size="md">
+                Explore Collection
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="primary" size="md">
+                Contact Us
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

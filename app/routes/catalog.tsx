@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router";
 import { motion } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
-import { ProductCard } from "~/components/portfolio/product-card";
+import { ProductCard } from "~/components/catalog/product-card";
 import {
   categories,
   getAllProducts,
@@ -11,7 +11,7 @@ import {
 
 export function meta() {
   return [
-    { title: "Portfolio | TH Furniture" },
+    { title: "Catalog | TH Furniture" },
     {
       name: "description",
       content:
@@ -20,7 +20,7 @@ export function meta() {
   ];
 }
 
-export default function Portfolio() {
+export default function Catalog() {
   const [searchParams, setSearchParams] = useSearchParams();
   const activeCategory = searchParams.get("category") as Category | null;
 

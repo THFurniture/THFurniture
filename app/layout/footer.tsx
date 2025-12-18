@@ -28,17 +28,17 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/portfolio" className="text-sm text-[#6B6965] hover:text-[#2E2C2A] transition-colors">
+                <Link to="/catalog" className="text-sm text-[#6B6965] hover:text-[#2E2C2A] transition-colors">
                   Collection
                 </Link>
               </li>
               <li>
-                <Link to="/portfolio?category=seating" className="text-sm text-[#6B6965] hover:text-[#2E2C2A] transition-colors">
+                <Link to="/catalog?category=seating" className="text-sm text-[#6B6965] hover:text-[#2E2C2A] transition-colors">
                   Seating
                 </Link>
               </li>
               <li>
-                <Link to="/portfolio?category=tables" className="text-sm text-[#6B6965] hover:text-[#2E2C2A] transition-colors">
+                <Link to="/catalog?category=tables" className="text-sm text-[#6B6965] hover:text-[#2E2C2A] transition-colors">
                   Tables
                 </Link>
               </li>
