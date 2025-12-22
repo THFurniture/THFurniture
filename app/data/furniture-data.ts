@@ -51,7 +51,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Elizabeth Sofa brings together comfort and refined elegance in a beautifully balanced design. Crafted with a fancy, elegant style, it features subtle brass details and a strong back line that adds structure and sophistication to any living space.\nDesigned to be very comfortable, the Elizabeth offers a supportive back, comfortable armrests, and a deep seat perfect for lounging. The seat cushions are removable, making them easy to swap or refresh whenever needed.\nWith a wide range of fabric variations to choose from, you can fully customize the Elizabeth Sofa to suit your interior—whether you prefer something soft and cozy or sleek and modern.\nElegant, refined, and exceptionally comfortable, the Elizabeth Sofa is a timeless piece made to elevate any home.",
     dimensions: "8'6\" W x 3'5\" D x 2'6 1/2\" H",
-    images: generateImages("elizabeth_sofa", 10),
+    images: generateImages("elizabeth_sofa", 6),
   },
   {
     slug: "ashley_sofa",
@@ -59,7 +59,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Ashley Sofa is a unique long 11' statement piece, blending a sleek design with a mix of modern and mid-century style. Its generous profile features a fully tufted base filled with down-feather cushioning, creating an elegant look that feels both luxurious and incredibly comfortable.\nDesigned for big or small people alike, this sofa offers a deep, relaxed seat and big strong armrests that double as a side table, display surface, or extra seating area. Its silhouette is clean and timeless, while still feeling warm and sophisticated.\nAvailable in a wide range of fabrics for customization, the Ashley Sofa can be tailored to suit any interior—from bright contemporary spaces to cozy minimalist homes.",
     dimensions: "136\" W x 42\" D x 24\" H",
-    images: generateImages("ashley_sofa", 8),
+    images: generateImages("ashley_sofa", 7),
   },
   {
     slug: "billy_sofa",
@@ -67,7 +67,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Billy Sofa is a bold, architectural statement—celebrated as the longest sofa in our collection. Its clean, uninterrupted lines and structured profile are designed to impress, offering a sleek and modern look without the need for back cushions. This creates a contemporary, minimalist silhouette that feels both spacious and refined.\nCrafted for complete flexibility, the Billy Sofa can be upholstered in fabric, leather, or a combination of both, depending on your vision. Its horizontal panel detail adds subtle texture and can be fully customized with different stitching patterns for a tailored, high-end finish.\nPerfect for large living rooms, open-concept spaces, or luxury settings, the Billy Sofa brings both scale and sophistication. With a wide range of customization options, it can be crafted to match any interior—whether you prefer a soft, inviting aesthetic or a bold, modern statement.\nTimeless, versatile, and beautifully oversized, the Billy Sofa redefines contemporary comfort.",
     dimensions: "132\"W x 39\"D x 26.37\"H",
-    images: generateImages("billy_sofa", 9),
+    images: generateImages("billy_sofa", 8),
   },
   {
     slug: "ethan_arm_chair",
@@ -99,7 +99,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Justin Sofa blends modern comfort with a tailored, architectural silhouette. Its gently sloped arm design offers a relaxed, inviting profile that enhances both style and comfort. With generous deep seating, it creates the perfect lounge experience for everyday living.\nDesigned for complete personalization, the Justin Sofa is available in a wide range of materials, including premium fabrics, supple leathers, or a combination of both for a striking, custom look. The stitching details can also be customized, allowing you to choose finishes that feel minimal, refined, or more decorative depending on your aesthetic.\nThe quilted exterior panels add subtle texture and sophistication, while the clean lines and plush back cushions create a balanced, contemporary feel. Whether you're designing for a modern home, luxury condo, or hospitality space, the Justin Sofa delivers versatility, comfort, and timeless appeal.\nA piece that can be tailored from top to bottom, the Justin Sofa is crafted to reflect your personal style with elevated ease.",
     dimensions: "120\" W x 40\"D x 26\"H",
-    images: generateImages("justin_sofa", 6),
+    images: generateImages("justin_sofa", 4),
   },
   {
     slug: "karlina_sofa",
@@ -107,7 +107,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Karlina Sofa is a comfortable, contemporary piece designed with a modern, timeless silhouette. Its generous 10'–11' custom size and deep, plush seating create a lounge-like experience, while the supportive back cushions offer exceptional comfort for everyday living.\nCrafted with versatility in mind, the Karlina offers a wide variation of fabrics for customization. You can tailor it to your space with endless combinations — for example, choosing leather seating paired with a fabric frame, or selecting a fully upholstered look. The signature folded front arm detail features a refined T accent, which can also be customized with or without the T for a more minimal aesthetic.\nWith its clean lines, soft proportions, and many configuration options, the Karlina Sofa is a sophisticated addition to any home — beautifully made to reflect your personal style.",
     dimensions: "120\"W x 42\"D x 26\"H",
-    images: generateImages("karlina_sofa", 8),
+    images: generateImages("karlina_sofa", 6),
   },
   {
     slug: "koby_sofa",
@@ -115,7 +115,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Koby Sofa blends modern precision with customizable luxury, offering a clean, structured silhouette that feels both contemporary and timeless. Designed with a custom back layout, each back cushion is crafted for a tailored look while still providing exceptional comfort and support.\nThe removable seat cushions make switching or refreshing the seating effortless—ideal for long-term convenience and easy maintenance. Both the arm panels and sides feature the option of a signature \"T\" detail, which can be added for a bold, distinctive touch or omitted for a more minimal, understated look.\nFully adaptable to your style, the Koby Sofa is available in a wide range of fabric and leather options, with the ability to mix materials for a personalized finish. Whether you prefer a sleek monochromatic aesthetic or a contrasting combination, the Koby can be customized to complement any interior.\nThoughtfully designed and highly versatile, the Koby Sofa is a refined statement piece—crafted to evolve with your space and reflect your design vision.",
     dimensions: "120\"W x 41-1/2\"D x 28\"H",
-    images: generateImages("koby_sofa", 13),
+    images: generateImages("koby_sofa", 11),
   },
   {
     slug: "koi_office_chair",
