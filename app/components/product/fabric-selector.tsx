@@ -5,7 +5,7 @@ import type { Fabric, FabricCollection } from "~/data/fabric-data";
 interface FabricSelectorProps {
   fabrics: Fabric[];
   selectedFabric: Fabric | null;
-  onSelect: (fabric: Fabric) => void;
+  onSelect: (fabric: Fabric | null) => void;
 }
 
 export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSelectorProps) {
@@ -53,15 +53,25 @@ export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSele
               }}
             />
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="text-xs text-[#6B6965] truncate">{selectedFabric.collection}</p>
             <p className="font-semibold text-[#2E2C2A]">{selectedFabric.name}</p>
           </div>
+          <button
+            onClick={() => onSelect(null)}
+            className="flex-shrink-0 p-2 text-[#6B6965] hover:text-[#2E2C2A] hover:bg-white/50 rounded-lg transition-colors"
+            title="Remove selection"
+            aria-label="Remove fabric selection"
+          >
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
         </motion.div>
       )}
 
       {/* Fabric Collections (Accordion Style) */}
-      <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1 scrollbar-thin">
+      <div className="space-y-3 max-h-[420px] md:max-h-none overflow-y-auto md:overflow-visible pr-1 scrollbar-thin">
         {collections.map((collection) => {
           const collectionFabrics = groupedByCollection[collection];
           const isExpanded = expandedCollection === collection;

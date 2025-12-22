@@ -399,5 +399,19 @@ export function getCustomProductBySlug(slug: string): CustomProduct | undefined 
 }
 
 export function getAllCustomProducts(): CustomProduct[] {
-  return customProducts;
+  // Define el orden de las categorías: tables, beds, seating, storage, collections
+  const categoryOrder: CustomCategory[] = ["tables", "beds", "seating", "storage", "collections"];
+  
+  // Crear un mapa de orden de categorías
+  const categoryOrderMap = new Map<CustomCategory, number>();
+  categoryOrder.forEach((cat, index) => {
+    categoryOrderMap.set(cat, index);
+  });
+  
+  // Ordenar productos por categoría
+  return [...customProducts].sort((a, b) => {
+    const orderA = categoryOrderMap.get(a.category) ?? 999;
+    const orderB = categoryOrderMap.get(b.category) ?? 999;
+    return orderA - orderB;
+  });
 }

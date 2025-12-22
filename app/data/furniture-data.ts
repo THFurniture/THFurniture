@@ -216,6 +216,20 @@ export function getProductBySlug(slug: string): Product | undefined {
 }
 
 export function getAllProducts(): Product[] {
-  return products;
+  // Define el orden de las categorías: sofas, seating, ottomans, tables, beds
+  const categoryOrder: Category[] = ["sofas", "seating", "ottomans", "tables", "beds"];
+  
+  // Crear un mapa de orden de categorías
+  const categoryOrderMap = new Map<Category, number>();
+  categoryOrder.forEach((cat, index) => {
+    categoryOrderMap.set(cat, index);
+  });
+  
+  // Ordenar productos por categoría
+  return [...products].sort((a, b) => {
+    const orderA = categoryOrderMap.get(a.category) ?? 999;
+    const orderB = categoryOrderMap.get(b.category) ?? 999;
+    return orderA - orderB;
+  });
 }
 
