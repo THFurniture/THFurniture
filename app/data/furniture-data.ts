@@ -131,7 +131,7 @@ export const products: Product[] = [
     category: "ottomans",
     description: "The Mila Ottoman is a striking, unique centrepiece that effortlessly blends style and versatility. With its smooth top and subtly quilted sides, it adds a sculptural elegance that works beautifully in almost any setting. Whether placed in a bedroom, living room, by a window seating area, in front of a fireplace, an entryway, or even a hotel lobby, the Mila adapts with ease.\nIts clean, rounded form can be tailored to your exact needs with customizable sizing, multiple pattern options, and a wide range of fabrics — from luxurious textures to sleek, modern finishes. Depending on your choices, the Mila can lean fancy and glamorous or modern and minimal.\nPerfect as a coffee-table alternative, a seating area, or a soft visual anchor in a room, the Mila Ottoman brings refined sophistication wherever it goes — an elegant blend of comfort, practicality, and high-end design.",
     dimensions: "6'8\"W x 2'3\" D x 1'4\" H (Big), 4' W x 2'1 1/2\"D x 1'4\" H (Small)",
-    images: generateImages("mila_ottoman", 6),
+    images: generateImages("mila_ottoman", 4),
   },
   {
     slug: "monaco_ottoman",
@@ -187,7 +187,7 @@ export const products: Product[] = [
     category: "seating",
     description: "The Thomas Armchair brings a beautifully curved profile and a refined modern style, offering a perfect balance between comfort and sophistication. Its sleek armrests and clean silhouette give it an elevated, contemporary presence, while the deep seating invites you to relax in complete comfort.\nA generously sized back cushion provides strong support, making the Thomas ideal for long moments of lounging. Its design is elegant and timeless, inspired by both modern simplicity and subtle luxury.\nWith a wide range of fabrics and the option to mix leather and fabric, the Thomas Armchair can be tailored to your personal style—whether you prefer something fancy, understated, or fully contemporary. Details around the chair can also be customized, allowing you to choose stitching, finish, and texture combinations for a truly individualized look.\nVersatile, stylish, and deeply comfortable, the Thomas Armchair is a beautifully crafted piece that enhances any living space.",
     dimensions: "3'1-1/2\" W x 2'11\"D x 2'10 1/2\"H",
-    images: generateImages("thomas_arm_chair", 9),
+    images: generateImages("thomas_arm_chair", 7),
   },
   {
     slug: "vienna_ottoman",

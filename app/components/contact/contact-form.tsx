@@ -18,13 +18,13 @@ export function ContactForm() {
       {/* Main content area - two columns */}
       <div className="grid grid-cols-1 md:grid-cols-2 min-h-screen">
         {/* Left side - Image + Quote */}
-        <div className="bg-[#D9D6CE] hidden md:flex flex-col items-center justify-between p-12">
+        <div className="bg-[#D9D6CE] hidden md:flex flex-col items-center justify-between p-12 rounded-r-lg">
           {/* Image */}
           <div className="relative w-full flex-1 flex items-center justify-center">
             <img
               src="/other/contact-img.webp"
               alt="Contact"
-              className="w-full h-full object-cover rounded"
+              className="w-full h-full object-cover rounded-lg"
             />
           </div>
 
@@ -201,6 +201,72 @@ export function ContactForm() {
               <p className="text-sm text-[#A0685F]">
                 Mon - Fri: 9am - 6pm EST
               </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Maps Section */}
+      <div className="w-full bg-[#F9F7F4] py-16 md:py-24 px-6 md:px-12">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Title */}
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#2E2C2A] mb-3">
+              Visit Us
+            </h2>
+            <p className="text-base text-[#A0685F] max-w-2xl mx-auto">
+              3870 Jacombs Rd #101, Richmond, BC V6V 1Y6, Canada
+            </p>
+          </div>
+
+          {/* Maps Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            {/* Google Maps iframe - Left */}
+            <div className="group">
+              <div className="mb-3">
+                <h3 className="text-lg font-serif font-semibold text-[#2E2C2A]">
+                  Map View
+                </h3>
+                <p className="text-sm text-[#A0685F] mt-1">
+                  See our location on the map
+                </p>
+              </div>
+              <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 border border-[#E0DDD6]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2607.7847618627898!2d-123.0809163236744!3d49.18567077137841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5486750a847a09c1%3A0x98ee601e4222d993!2s3870%20Jacombs%20Rd%20%23101%2C%20Richmond%2C%20BC%20V6V%201Y6%2C%20Canad%C3%A1!5e0!3m2!1ses-419!2smx!4v1766521827577!5m2!1ses-419!2smx"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                ></iframe>
+              </div>
+            </div>
+
+            {/* Google Maps iframe - Right */}
+            <div className="group">
+              <div className="mb-3">
+                <h3 className="text-lg font-serif font-semibold text-[#2E2C2A]">
+                  Street View
+                </h3>
+                <p className="text-sm text-[#A0685F] mt-1">
+                  Explore the area around our location
+                </p>
+              </div>
+              <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 border border-[#E0DDD6]">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2smx!4v1766521753296!5m2!1ses-419!2smx!6m8!1m7!1ssbcWf_NWHr34wthn7OZ_3Q!2m2!1d49.18565403265792!2d-123.0779263951254!3f280.96181390141993!4f2.604501796292226!5f0.4000000000000002"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="w-full h-full"
+                ></iframe>
+              </div>
             </div>
           </div>
         </div>

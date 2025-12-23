@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useParams } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
@@ -12,17 +12,60 @@ export default function ProductPage() {
   const product = getProductBySlug(slug || "");
   const [selectedFabric, setSelectedFabric] = useState<Fabric | null>(null);
   const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  const [lightboxIndex, setLightboxIndex] = useState<number>(0);
 
   // Reset fabric selection when product changes
   useEffect(() => {
     setSelectedFabric(null);
   }, [slug]);
 
-  // Close lightbox on ESC key
+  // Get all images for navigation (main image + additional images)
+  const getAllImages = (): string[] => {
+    if (!product) return [];
+    return product.images;
+  };
+
+  const allImages = getAllImages();
+
+  // Navigate lightbox
+  const openLightbox = useCallback((image: string) => {
+    const index = allImages.indexOf(image);
+    setLightboxIndex(index >= 0 ? index : 0);
+    setLightboxImage(image);
+  }, [allImages]);
+
+  const navigateLightbox = useCallback((direction: "prev" | "next") => {
+    if (allImages.length === 0) return;
+    
+    setLightboxIndex((currentIndex) => {
+      let newIndex = currentIndex;
+      if (direction === "prev") {
+        newIndex = currentIndex === 0 ? allImages.length - 1 : currentIndex - 1;
+      } else {
+        newIndex = currentIndex === allImages.length - 1 ? 0 : currentIndex + 1;
+      }
+      
+      setLightboxImage(allImages[newIndex]);
+      return newIndex;
+    });
+  }, [allImages]);
+
+  // Handle keyboard navigation and ESC key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setLightboxImage(null);
+      if (!lightboxImage) return;
+      
+      if (e.key === "Escape") {
+        setLightboxImage(null);
+      } else if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        navigateLightbox("prev");
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        navigateLightbox("next");
+      }
     };
+    
     if (lightboxImage) {
       document.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
@@ -31,7 +74,7 @@ export default function ProductPage() {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
     };
-  }, [lightboxImage]);
+  }, [lightboxImage, navigateLightbox]);
 
   if (!product) {
     return (
@@ -114,7 +157,7 @@ export default function ProductPage() {
             <div className="space-y-4">
               {/* Main Product Image */}
               <button
-                onClick={() => setLightboxImage(mainImage)}
+                onClick={() => openLightbox(mainImage)}
                 className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE] w-full cursor-zoom-in group"
               >
                 <AnimatePresence mode="wait">
@@ -152,7 +195,7 @@ export default function ProductPage() {
                   {additionalImages.map((image, index) => (
                     <button
                       key={image}
-                      onClick={() => setLightboxImage(image)}
+                      onClick={() => openLightbox(image)}
                       className="relative aspect-square rounded-lg overflow-hidden bg-[#E5E3DE] cursor-zoom-in group"
                     >
                       <img
@@ -245,16 +288,53 @@ export default function ProductPage() {
           >
             {/* Close button */}
             <button
-              onClick={() => setLightboxImage(null)}
-              className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition-colors"
+              onClick={(e) => {
+                e.stopPropagation();
+                setLightboxImage(null);
+              }}
+              className="absolute top-4 right-4 p-2 text-white/80 hover:text-white transition-colors z-10"
+              aria-label="Close lightbox"
             >
               <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
+            {/* Previous button */}
+            {allImages.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateLightbox("prev");
+                }}
+                className="absolute left-4 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white transition-colors bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-sm z-10"
+                aria-label="Previous image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+            )}
+
+            {/* Next button */}
+            {allImages.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  navigateLightbox("next");
+                }}
+                className="absolute right-4 top-1/2 -translate-y-1/2 p-3 text-white/80 hover:text-white transition-colors bg-black/30 hover:bg-black/50 rounded-full backdrop-blur-sm z-10"
+                aria-label="Next image"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            )}
+
             {/* Image */}
             <motion.img
+              key={lightboxImage}
               initial={{ scale: 0.9, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.9, opacity: 0 }}
@@ -265,10 +345,19 @@ export default function ProductPage() {
               onClick={(e) => e.stopPropagation()}
             />
 
+            {/* Image counter */}
+            {allImages.length > 1 && (
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-sm px-4 py-2 rounded-full text-white/80 text-sm z-10">
+                {lightboxIndex + 1} / {allImages.length}
+              </div>
+            )}
+
             {/* Navigation hint */}
-            <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
-              Click outside or press ESC to close
-            </p>
+            {allImages.length === 1 && (
+              <p className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm">
+                Click outside or press ESC to close
+              </p>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
