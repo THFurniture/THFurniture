@@ -11,7 +11,7 @@ import {
 
 export function meta() {
   return [
-    { title: "Catalog | TH Furniture" },
+    { title: "Catalog | THU Furniture" },
     {
       name: "description",
       content:
@@ -58,11 +58,10 @@ export default function Catalog() {
               onClick={() => handleCategoryClick(null)}
               layout
               initial={false}
-              className={`px-4 py-2 rounded-sm text-sm font-medium cursor-pointer transition-colors ${
-                !activeCategory
+              className={`px-4 py-2 rounded-sm text-sm font-medium cursor-pointer transition-colors ${!activeCategory
                   ? "bg-[#2E2C2A] text-white"
                   : "bg-transparent text-[#6B6965] hover:text-[#2E2C2A]"
-              }`}
+                }`}
             >
               All
             </motion.button>
@@ -72,11 +71,10 @@ export default function Catalog() {
                 onClick={() => handleCategoryClick(category.id)}
                 layout
                 initial={false}
-                className={`px-4 py-2 rounded-sm text-sm font-medium cursor-pointer transition-colors ${
-                  activeCategory === category.id
+                className={`px-4 py-2 rounded-sm text-sm font-medium cursor-pointer transition-colors ${activeCategory === category.id
                     ? "bg-[#2E2C2A] text-white"
                     : "bg-transparent text-[#6B6965] hover:text-[#2E2C2A]"
-                }`}
+                  }`}
               >
                 {category.name}
               </motion.button>
@@ -84,7 +82,7 @@ export default function Catalog() {
           </div>
 
           {/* Products Grid */}
-          <motion.div 
+          <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
             layout
           >
@@ -95,7 +93,7 @@ export default function Catalog() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
-                transition={{ 
+                transition={{
                   duration: 0.4,
                   delay: index * 0.05
                 }}

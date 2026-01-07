@@ -44,7 +44,7 @@ export function Navbar() {
           <Link to="/" className="flex items-center z-50">
             <img
               src="/logos/TH_logo_black.png"
-              alt="TH Furniture"
+              alt="THU Furniture"
               className="h-16 md:h-20 w-auto transition-all"
             />
           </Link>
@@ -55,11 +55,10 @@ export function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer border border-[#2E2C2A] ${
-                  link.variant === "primary"
+                className={`px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer border border-[#2E2C2A] ${link.variant === "primary"
                     ? "bg-[#2E2C2A] text-white hover:bg-[#3A3935] hover:border-[#3A3935]"
                     : "bg-transparent text-[#2E2C2A] hover:bg-[#F0EEE9]"
-                }`}
+                  }`}
               >
                 {link.label}
               </Link>
@@ -96,11 +95,10 @@ export function Navbar() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`w-full text-center px-8 py-4 text-lg font-semibold transition-all duration-200 border border-[#2E2C2A] ${
-                    link.variant === "primary"
+                  className={`w-full text-center px-8 py-4 text-lg font-semibold transition-all duration-200 border border-[#2E2C2A] ${link.variant === "primary"
                       ? "bg-[#2E2C2A] text-white"
                       : "bg-transparent text-[#2E2C2A]"
-                  }`}
+                    }`}
                 >
                   {link.label}
                 </Link>

@@ -179,16 +179,16 @@ export function ContactForm() {
               </h3>
               <div className="space-y-2">
                 <a
-                  href="mailto:hello@thfurniture.com"
+                  href="mailto:hellothufurniture@gmail.com"
                   className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
                 >
-                  hello@thfurniture.com
+                  hellothufurniture@gmail.com
                 </a>
                 <a
-                  href="tel:+15551234567"
+                  href="tel:7785806609"
                   className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
                 >
-                  +1 (555) 123-4567
+                  778 580 6609
                 </a>
               </div>
             </div>
@@ -199,7 +199,7 @@ export function ContactForm() {
                 Hours
               </h3>
               <p className="text-sm text-[#A0685F]">
-                Mon - Fri: 9am - 6pm EST
+                Monday - Friday: 10:00 - 5:00 pm <br />by Appointment only
               </p>
             </div>
           </div>

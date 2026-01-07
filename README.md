@@ -1,10 +1,10 @@
-# TH Furniture - Luxury Furniture Digital Showroom Platform
+# THU Furniture - Luxury Furniture Digital Showroom Platform
 
-A premium, full-stack e-commerce application for TH Furniture, featuring an interactive fabric selector and seamless inquiry flow. Built with React Router, TypeScript, and Tailwind CSS.
+A premium, full-stack e-commerce application for THU Furniture, featuring an interactive fabric selector and seamless inquiry flow. Built with React Router, TypeScript, and Tailwind CSS.
 
 ## Overview
 
-TH Furniture is a modern furniture showcase and inquiry platform that enables customers to explore curated furniture collections, select from multiple fabric options with real-time image updates, and initiate inquiries directly with their selected configurations.
+THU Furniture is a modern furniture showcase and inquiry platform that enables customers to explore curated furniture collections, select from multiple fabric options with real-time image updates, and initiate inquiries directly with their selected configurations.
 
 ## Key Features
 
@@ -229,7 +229,7 @@ This project maintains a simple, maintainable structure. When adding features:
 
 ## License
 
-Built with care for TH Furniture.
+Built with care for THU Furniture.
 
 ---
 

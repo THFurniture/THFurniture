@@ -4,9 +4,9 @@ import { Intro } from "../components/home/intro";
 import { FeaturedCategories } from "../components/home/featured-categories";
 import { CTA } from "../components/home/cta";
 
-export function meta({}: Route.MetaArgs) {
+export function meta({ }: Route.MetaArgs) {
   return [
-    { title: "TH Furniture - Form follows feeling" },
+    { title: "THU Furniture - Form follows feeling" },
     { name: "description", content: "Discover a curated collection of furniture that brings calm, elegance, and purpose to your space." },
   ];
 }

@@ -1,9 +1,9 @@
 export function meta() {
   return [
-    { title: "Contact | TH Furniture" },
+    { title: "Contact | THU Furniture" },
     {
       name: "description",
-      content: "Get in touch with TH Furniture to inquire about our collection.",
+      content: "Get in touch with THU Furniture to inquire about our collection.",
     },
   ];
 }
