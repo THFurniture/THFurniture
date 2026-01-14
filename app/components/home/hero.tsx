@@ -24,7 +24,7 @@ export function Hero() {
           </h1>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-[#3A3935] mb-8 leading-relaxed max-w-md [text-shadow:_3px_3px_6px_rgba(255,255,255,1),_-3px_-3px_6px_rgba(255,255,255,1),_0_0_40px_rgba(255,255,255,1),_0_0_70px_rgba(255,255,255,0.9),_0_0_100px_rgba(255,255,255,0.8)]">
+          <p className="text-lg md:text-xl text-[#3A3935] mb-8 leading-relaxed max-w-md [text-shadow:_4px_4px_8px_rgba(255,255,255,1),_-4px_-4px_8px_rgba(255,255,255,1),_4px_-4px_8px_rgba(255,255,255,1),_-4px_4px_8px_rgba(255,255,255,1),_0_0_60px_rgba(255,255,255,1),_0_0_100px_rgba(255,255,255,0.9),_0_0_140px_rgba(255,255,255,0.8)]">
             Discover a curated collection of furniture that brings calm, elegance, and purpose to your space.
           </p>
 
