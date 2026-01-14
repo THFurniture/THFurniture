@@ -17,14 +17,14 @@ export function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 w-full">
         <div className="max-w-2xl">
           {/* Title */}
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-regular text-[#3A3935] mb-6 leading-tight">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-regular text-[#3A3935] mb-6 leading-tight [text-shadow:_4px_4px_8px_rgba(255,255,255,1),_-4px_-4px_8px_rgba(255,255,255,1),_4px_-4px_8px_rgba(255,255,255,1),_-4px_4px_8px_rgba(255,255,255,1),_0_0_60px_rgba(255,255,255,1),_0_0_100px_rgba(255,255,255,0.9),_0_0_140px_rgba(255,255,255,0.8)]">
           Optimal form <br/> meets exquisite
             <br />
             <span className="text-[#3A3935] font-bold italic">design:</span>
           </h1>
 
           {/* Description */}
-          <p className="text-lg md:text-xl text-[#3A3935] mb-8 leading-relaxed max-w-md">
+          <p className="text-lg md:text-xl text-[#3A3935] mb-8 leading-relaxed max-w-md [text-shadow:_3px_3px_6px_rgba(255,255,255,1),_-3px_-3px_6px_rgba(255,255,255,1),_0_0_40px_rgba(255,255,255,1),_0_0_70px_rgba(255,255,255,0.9),_0_0_100px_rgba(255,255,255,0.8)]">
             Discover a curated collection of furniture that brings calm, elegance, and purpose to your space.
           </p>
 
