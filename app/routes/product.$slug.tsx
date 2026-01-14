@@ -5,7 +5,7 @@ import { Navbar } from "~/layout/navbar";
 import { getProductBySlug, getProductsByCategory } from "~/data/furniture-data";
 import { ProductCard } from "~/components/catalog/product-card";
 import { FabricSelector } from "~/components/product/fabric-selector";
-import { fabrics, getProductImageForFabric, type Fabric } from "~/data/fabric-data";
+import { fabrics, type Fabric } from "~/data/fabric-data";
 import type { Route } from "./+types/product.$slug";
 
 export function meta({ params }: Route.MetaArgs) {
@@ -129,10 +129,8 @@ export default function ProductPage() {
     .filter((p) => p.slug !== product.slug)
     .slice(0, 3);
 
-  // Main image: use fabric-specific if selected, otherwise default product image
-  const mainImage = selectedFabric
-    ? getProductImageForFabric(product.slug, selectedFabric.id)
-    : product.images[0];
+  // Main image: use default product image
+  const mainImage = product.images[0];
   const additionalImages = product.images.slice(1);
 
   // Build inquiry URL with product and fabric info
@@ -189,7 +187,7 @@ export default function ProductPage() {
                   <motion.img
                     key={mainImage}
                     src={mainImage}
-                    alt={selectedFabric ? `${product.name} in ${selectedFabric.name}` : product.name}
+                    alt={product.name}
                     className="w-full h-full object-cover"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
@@ -205,13 +203,6 @@ export default function ProductPage() {
                   </svg>
                 </div>
                 
-                {/* Fabric indicator badge - only show when fabric is selected */}
-                {selectedFabric && (
-                  <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm px-3 py-2 rounded-lg shadow-sm">
-                    <p className="text-xs text-[#6B6965]">Selected fabric</p>
-                    <p className="text-sm font-medium text-[#2E2C2A]">{selectedFabric.name}</p>
-                  </div>
-                )}
               </button>
 
               {/* Additional Images Gallery */}

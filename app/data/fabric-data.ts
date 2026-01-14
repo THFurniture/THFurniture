@@ -64,11 +64,6 @@ export function getAllCollections(): FabricCollection[] {
   return [...new Set(fabrics.map((f) => f.collection))] as FabricCollection[];
 }
 
-// Utility to generate product image path based on product slug and fabric id
-export function getProductImageForFabric(productSlug: string, fabricId: string): string {
-  return `/furniture/${productSlug}-${fabricId}.webp`;
-}
-
 // Get default fabric (first one)
 export function getDefaultFabric(): Fabric {
   return fabrics[0];

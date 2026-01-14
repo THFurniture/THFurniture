@@ -1,7 +1,43 @@
-import { useSearchParams } from "react-router";
+import { useFetcher, useSearchParams } from "react-router";
+import { useEffect, useRef, useState } from "react";
+
+type ActionData = {
+  success: boolean;
+  error?: string;
+};
+
+// Country codes for phone input - focused on North America with common international options
+const COUNTRY_CODES = [
+  { code: "+1", country: "CA", flag: "🇨🇦", label: "Canada" },
+  { code: "+1", country: "US", flag: "🇺🇸", label: "United States" },
+  { code: "+52", country: "MX", flag: "🇲🇽", label: "Mexico" },
+  { code: "+44", country: "GB", flag: "🇬🇧", label: "United Kingdom" },
+  { code: "+33", country: "FR", flag: "🇫🇷", label: "France" },
+  { code: "+49", country: "DE", flag: "🇩🇪", label: "Germany" },
+  { code: "+39", country: "IT", flag: "🇮🇹", label: "Italy" },
+  { code: "+34", country: "ES", flag: "🇪🇸", label: "Spain" },
+  { code: "+81", country: "JP", flag: "🇯🇵", label: "Japan" },
+  { code: "+86", country: "CN", flag: "🇨🇳", label: "China" },
+  { code: "+91", country: "IN", flag: "🇮🇳", label: "India" },
+  { code: "+61", country: "AU", flag: "🇦🇺", label: "Australia" },
+  { code: "+55", country: "BR", flag: "🇧🇷", label: "Brazil" },
+  { code: "+82", country: "KR", flag: "🇰🇷", label: "South Korea" },
+  { code: "+31", country: "NL", flag: "🇳🇱", label: "Netherlands" },
+  { code: "+46", country: "SE", flag: "🇸🇪", label: "Sweden" },
+  { code: "+41", country: "CH", flag: "🇨🇭", label: "Switzerland" },
+  { code: "+65", country: "SG", flag: "🇸🇬", label: "Singapore" },
+  { code: "+852", country: "HK", flag: "🇭🇰", label: "Hong Kong" },
+  { code: "+971", country: "AE", flag: "🇦🇪", label: "UAE" },
+];
 
 export function ContactForm() {
   const [searchParams] = useSearchParams();
+  const fetcher = useFetcher<ActionData>();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [selectedCountry, setSelectedCountry] = useState(COUNTRY_CODES[0]); // Default to Canada
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Read product inquiry context from URL params
   const productName = searchParams.get("product");
@@ -12,6 +48,39 @@ export function ContactForm() {
   const defaultMessage = productName
     ? `I'm interested in the ${productName}${fabricName ? ` in ${fabricName} (${fabricCollection})` : ""}.`
     : "";
+
+  // Build product context string for the hidden field
+  const productContext = productName
+    ? `${productName}${fabricName ? ` - ${fabricName} (${fabricCollection})` : ""}`
+    : "";
+
+  const isSubmitting = fetcher.state === "submitting";
+  const isSuccess = fetcher.data?.success === true;
+  const errorMessage = fetcher.data?.error;
+
+  // Handle success state
+  useEffect(() => {
+    if (isSuccess && !errorMessage) {
+      setShowSuccess(true);
+      formRef.current?.reset();
+      // Auto-hide success message after 5 seconds
+      const timer = setTimeout(() => setShowSuccess(false), 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [isSuccess, errorMessage]);
+
+  // Close dropdown when clicking outside (but not when scrolling)
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsCountryDropdownOpen(false);
+      }
+    }
+
+    // Only close on click, not on scroll/wheel events
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <main className="min-h-screen bg-[#F9F7F4] pt-28">
@@ -69,8 +138,60 @@ export function ContactForm() {
               </div>
             )}
 
+            {/* Success Message */}
+            {showSuccess && (
+              <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-green-500 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-green-800">Message sent successfully!</p>
+                    <p className="text-sm text-green-700">We'll get back to you as soon as possible.</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {errorMessage && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-red-500 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-red-800">Something went wrong</p>
+                    <p className="text-sm text-red-700">{errorMessage}</p>
+                  </div>
+                </div>
+              </div>
+            )}
+
             {/* Form */}
-            <form className="space-y-6 mb-12">
+            <fetcher.Form ref={formRef} method="post" action="/contact" className="space-y-6 mb-12">
+              {/* Honeypot field - hidden from real users, bots will fill it */}
+              <div className="absolute -left-[9999px]" aria-hidden="true">
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                />
+              </div>
+
+              {/* Hidden field for product context */}
+              <input type="hidden" name="productContext" value={productContext} />
+
+              {/* Hidden field for phone country code */}
+              <input type="hidden" name="phoneCode" value={selectedCountry.code} />
+
               {/* First Name and Last Name - Two columns */}
               <div className="grid grid-cols-2 gap-6">
                 <div>
@@ -86,7 +207,9 @@ export function ContactForm() {
                     name="firstName"
                     placeholder="Jane"
                     required
-                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                    maxLength={50}
+                    disabled={isSubmitting}
+                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
                   />
                 </div>
                 <div>
@@ -102,7 +225,9 @@ export function ContactForm() {
                     name="lastName"
                     placeholder="Doe"
                     required
-                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                    maxLength={50}
+                    disabled={isSubmitting}
+                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -121,25 +246,91 @@ export function ContactForm() {
                   name="email"
                   placeholder="jane@example.com"
                   required
-                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
+                  maxLength={254}
+                  disabled={isSubmitting}
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
                 />
               </div>
 
-              {/* Phone */}
+              {/* Phone with Country Code Selector */}
               <div>
                 <label
-                  htmlFor="phone"
+                  htmlFor="phoneNumber"
                   className="block text-sm font-medium text-[#2E2C2A] mb-2"
                 >
                   Phone (optional)
                 </label>
-                <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="+1 (555) 000-0000"
-                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors"
-                />
+                <div className="flex items-center gap-2">
+                  {/* Country Code Dropdown */}
+                  <div className="relative" ref={dropdownRef}>
+                    <button
+                      type="button"
+                      onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                      disabled={isSubmitting}
+                      className="flex items-center gap-1 px-2 py-2 border-b border-[#E0DDD6] hover:border-[#2E2C2A] bg-transparent text-[#2E2C2A] transition-colors disabled:opacity-50 min-w-[90px]"
+                    >
+                      <span className="text-lg">{selectedCountry.flag}</span>
+                      <span className="text-sm font-medium">{selectedCountry.code}</span>
+                      <svg
+                        className={`w-4 h-4 text-[#A0685F] transition-transform ${isCountryDropdownOpen ? "rotate-180" : ""}`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                      </svg>
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {isCountryDropdownOpen && (
+                      <div 
+                        className="absolute z-50 top-full left-0 mt-1 w-56 bg-white border border-[#E0DDD6] rounded-lg shadow-lg max-h-60 overflow-y-auto overscroll-contain"
+                        style={{ 
+                          scrollBehavior: 'smooth',
+                          WebkitOverflowScrolling: 'touch'
+                        }}
+                        onWheel={(e) => {
+                          // Prevent dropdown from closing when scrolling
+                          e.stopPropagation();
+                        }}
+                        onMouseEnter={() => {
+                          // Keep dropdown open when hovering/scrolling
+                        }}
+                      >
+                        {COUNTRY_CODES.map((country, index) => (
+                          <button
+                            key={`${country.country}-${index}`}
+                            type="button"
+                            onClick={() => {
+                              setSelectedCountry(country);
+                              setIsCountryDropdownOpen(false);
+                            }}
+                            className={`w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-[#F9F7F4] transition-colors ${
+                              selectedCountry.country === country.country && selectedCountry.code === country.code
+                                ? "bg-[#F0EEE9]"
+                                : ""
+                            }`}
+                          >
+                            <span className="text-lg">{country.flag}</span>
+                            <span className="flex-1 text-sm text-[#2E2C2A]">{country.label}</span>
+                            <span className="text-sm text-[#A0685F]">{country.code}</span>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Phone Number Input */}
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="(555) 000-0000"
+                    maxLength={15}
+                    disabled={isSubmitting}
+                    className="flex-1 px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
+                  />
+                </div>
               </div>
 
               {/* Message */}
@@ -157,20 +348,35 @@ export function ContactForm() {
                   placeholder="Tell us about the piece you are interested in..."
                   rows={4}
                   required
-                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 resize-none transition-colors"
+                  minLength={10}
+                  maxLength={2000}
+                  disabled={isSubmitting}
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 resize-none transition-colors disabled:opacity-50"
                 ></textarea>
+                <p className="text-xs text-[#A0685F]/70 mt-1">10-2000 characters</p>
               </div>
 
               {/* Submit Button */}
               <div className="pt-6">
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full px-6 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  Send Message
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Message"
+                  )}
                 </button>
               </div>
-            </form>
+            </fetcher.Form>
 
             {/* Direct Contact Section */}
             <div className="border-t border-[#E0DDD6] pt-8 mb-8">

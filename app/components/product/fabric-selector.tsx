@@ -41,7 +41,7 @@ export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSele
           animate={{ opacity: 1, y: 0 }}
           className="flex items-center gap-4 p-4 bg-[#F0EEE9] rounded-lg border border-[#E0DDD6]"
         >
-          <div className="relative w-14 h-14 rounded-lg overflow-hidden border-2 border-[#2E2C2A] flex-shrink-0">
+          <div className="relative w-20 h-20 rounded-lg overflow-hidden border-2 border-[#2E2C2A] flex-shrink-0">
             <img
               src={selectedFabric.swatchImage}
               alt={selectedFabric.name}
@@ -59,7 +59,7 @@ export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSele
           </div>
           <button
             onClick={() => onSelect(null)}
-            className="flex-shrink-0 p-2 text-[#6B6965] hover:text-[#2E2C2A] hover:bg-white/50 rounded-lg transition-colors"
+            className="flex-shrink-0 p-2 text-[#6B6965] hover:text-[#2E2C2A] hover:bg-white/50 rounded-lg transition-colors cursor-pointer"
             title="Remove selection"
             aria-label="Remove fabric selection"
           >
@@ -84,7 +84,7 @@ export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSele
               {/* Collection Header */}
               <button
                 onClick={() => setExpandedCollection(isExpanded ? null : collection)}
-                className="w-full flex items-center justify-between p-4 text-left hover:bg-[#FAFAF8] transition-colors"
+                className="w-full flex items-center justify-between p-4 text-left hover:bg-[#FAFAF8] transition-colors cursor-pointer"
               >
                 <span className="text-sm font-medium text-[#2E2C2A]">{collection}</span>
                 <div className="flex items-center gap-3">
@@ -115,7 +115,7 @@ export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSele
                     className="overflow-hidden"
                   >
                     <div className="p-4 pt-0 border-t border-[#E0DDD6]">
-                      <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-3 pt-4">
+                      <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 pt-4">
                         {collectionFabrics.map((fabric) => {
                           const isSelected = selectedFabric?.id === fabric.id;
 
@@ -123,7 +123,7 @@ export function FabricSelector({ fabrics, selectedFabric, onSelect }: FabricSele
                             <button
                               key={fabric.id}
                               onClick={() => onSelect(fabric)}
-                              className="group relative flex flex-col items-center"
+                              className="group relative flex flex-col items-center cursor-pointer"
                             >
                               {/* Swatch */}
                               <div
