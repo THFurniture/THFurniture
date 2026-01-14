@@ -7,7 +7,7 @@ import { CTA } from "../components/home/cta";
 export function meta({ }: Route.MetaArgs) {
   const title = "THU Furniture - Form follows feeling";
   const description = "Discover a curated collection of furniture that brings calm, elegance, and purpose to your space.";
-  const image = "https://thfurniture.com/logos/THU_logo_black.png";
+  const image = "https://www.thufurniture.ca/furniture/thomas_arm_chair/thomas-arm-chair.webp";
 
   return [
     { title },

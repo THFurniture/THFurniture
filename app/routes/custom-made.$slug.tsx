@@ -14,7 +14,7 @@ export function meta({ params }: Route.MetaArgs) {
 
   const title = `${product.name} | THU Furniture Custom Made`;
   const description = product.description.slice(0, 160);
-  const image = `https://thfurniture.com${product.images[0]}`;
+  const image = `https://www.thufurniture.ca${product.images[0]}`;
 
   return [
     { title },

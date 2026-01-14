@@ -12,7 +12,7 @@ import {
 export function meta() {
   const title = "Catalog | THU Furniture";
   const description = "Explore our comprehensive range of furniture, where each piece is chosen for its design integrity and material quality.";
-  const image = "https://thfurniture.com/logos/THU_logo_black.png";
+  const image = "https://www.thufurniture.ca/furniture/thomas_arm_chair/thomas-arm-chair.webp";
 
   return [
     { title },

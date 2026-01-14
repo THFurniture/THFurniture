@@ -36,15 +36,15 @@ export const meta: Route.MetaFunction = () => {
     { name: "description", content: "Discover a curated collection of furniture that brings calm, elegance, and purpose to your space." },
     { property: "og:site_name", content: "THU Furniture" },
     { property: "og:type", content: "website" },
-    { property: "og:image", content: "https://thfurniture.com/logos/THU_logo_black.png" },
+    { property: "og:image", content: "https://www.thufurniture.ca/furniture/thomas_arm_chair/thomas-arm-chair.webp" },
     { name: "twitter:card", content: "summary_large_image" },
-    { name: "twitter:image", content: "https://thfurniture.com/logos/THU_logo_black.png" },
+    { name: "twitter:image", content: "https://www.thufurniture.ca/furniture/thomas_arm_chair/thomas-arm-chair.webp" },
   ];
 };
 
 export function Layout({ children }: { children: React.ReactNode }) {
   const location = useLocation();
-  const canonicalUrl = `https://thfurniture.com${location.pathname}`;
+  const canonicalUrl = `https://www.thufurniture.ca${location.pathname}`;
 
   return (
     <html lang="en">
