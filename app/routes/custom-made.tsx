@@ -10,13 +10,21 @@ import {
 } from "~/data/custom-made-data";
 
 export function meta() {
+  const title = "Custom Made | THU Furniture";
+  const description = "Explore our custom-made furniture collection, where unique designs meet exceptional craftsmanship. Each piece is tailored to your vision.";
+  const image = "https://thfurniture.com/logos/THU_logo_black.png";
+
   return [
-    { title: "Custom Made | THU Furniture" },
-    {
-      name: "description",
-      content:
-        "Explore our custom-made furniture collection, where unique designs meet exceptional craftsmanship.",
-    },
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
   ];
 }
 

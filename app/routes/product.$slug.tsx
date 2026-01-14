@@ -6,6 +6,31 @@ import { getProductBySlug, getProductsByCategory } from "~/data/furniture-data";
 import { ProductCard } from "~/components/catalog/product-card";
 import { FabricSelector } from "~/components/product/fabric-selector";
 import { fabrics, getProductImageForFabric, type Fabric } from "~/data/fabric-data";
+import type { Route } from "./+types/product.$slug";
+
+export function meta({ params }: Route.MetaArgs) {
+  const product = getProductBySlug(params.slug || "");
+  if (!product) {
+    return [{ title: "Product Not Found | THU Furniture" }];
+  }
+
+  const title = `${product.name} | THU Furniture`;
+  const description = product.description.slice(0, 160);
+  const image = `https://thfurniture.com${product.images[0]}`;
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:type", content: "product" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+  ];
+}
 
 export default function ProductPage() {
   const { slug } = useParams();

@@ -5,6 +5,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useLocation,
 } from "react-router";
 
 import type { Route } from "./+types/root";
@@ -27,13 +28,29 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export const meta: Route.MetaFunction = () => {
+  return [
+    { title: "THU Furniture" },
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { charSet: "utf-8" },
+    { name: "description", content: "Discover a curated collection of furniture that brings calm, elegance, and purpose to your space." },
+    { property: "og:site_name", content: "THU Furniture" },
+    { property: "og:type", content: "website" },
+    { property: "og:image", content: "https://thfurniture.com/logos/THU_logo_black.png" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:image", content: "https://thfurniture.com/logos/THU_logo_black.png" },
+  ];
+};
+
 export function Layout({ children }: { children: React.ReactNode }) {
+  const location = useLocation();
+  const canonicalUrl = `https://thfurniture.com${location.pathname}`;
+
   return (
     <html lang="en">
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
+        <link rel="canonical" href={canonicalUrl} />
         <Links />
       </head>
       <body>

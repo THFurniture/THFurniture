@@ -4,6 +4,31 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
 import { getCustomProductBySlug, getCustomProductsByCategory } from "~/data/custom-made-data";
 import { CustomProductCard } from "~/components/catalog/custom-product-card";
+import type { Route } from "./+types/custom-made.$slug";
+
+export function meta({ params }: Route.MetaArgs) {
+  const product = getCustomProductBySlug(params.slug || "");
+  if (!product) {
+    return [{ title: "Product Not Found | THU Furniture" }];
+  }
+
+  const title = `${product.name} | THU Furniture Custom Made`;
+  const description = product.description.slice(0, 160);
+  const image = `https://thfurniture.com${product.images[0]}`;
+
+  return [
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:type", content: "product" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
+  ];
+}
 
 export default function CustomProductPage() {
   const { slug } = useParams();

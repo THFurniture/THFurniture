@@ -10,13 +10,21 @@ import {
 } from "~/data/furniture-data";
 
 export function meta() {
+  const title = "Catalog | THU Furniture";
+  const description = "Explore our comprehensive range of furniture, where each piece is chosen for its design integrity and material quality.";
+  const image = "https://thfurniture.com/logos/THU_logo_black.png";
+
   return [
-    { title: "Catalog | THU Furniture" },
-    {
-      name: "description",
-      content:
-        "Explore our comprehensive range of furniture, where each piece is chosen for its design integrity and material quality.",
-    },
+    { title },
+    { name: "description", content: description },
+    { property: "og:title", content: title },
+    { property: "og:description", content: description },
+    { property: "og:image", content: image },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+    { name: "twitter:title", content: title },
+    { name: "twitter:description", content: description },
+    { name: "twitter:image", content: image },
   ];
 }
 
