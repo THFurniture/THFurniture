@@ -28,10 +28,10 @@ export function CTA() {
               Get in Touch
             </Link>
             <a
-              href="tel:+15551234567"
+              href="tel:+17785806609"
               className="px-8 py-3 border border-gray-400 text-white font-semibold hover:border-white hover:bg-white/5 transition-colors duration-200"
             >
-              +1 (555) 123-4567
+              +1 (778) 580-6609
             </a>
           </div>
         </div>
