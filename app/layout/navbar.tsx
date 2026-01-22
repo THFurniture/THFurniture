@@ -75,12 +75,12 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-10">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`text-sm font-medium tracking-wide transition-colors relative ${useWhiteText
+                className={`text-lg font-medium tracking-wide transition-colors relative ${useWhiteText
                   ? "text-white/90 hover:text-white"
                   : isActive(link.to)
                     ? "text-[#2E2C2A]"
@@ -90,7 +90,7 @@ export function Navbar() {
                 {link.label}
                 {isActive(link.to) && (
                   <span
-                    className={`absolute -bottom-1 left-0 right-0 h-0.5 transition-colors ${useWhiteText ? "bg-white" : "bg-[#A0685F]"
+                    className={`absolute -bottom-2 left-0 right-0 h-0.5 transition-colors ${useWhiteText ? "bg-white" : "bg-[#A0685F]"
                       }`}
                   />
                 )}
