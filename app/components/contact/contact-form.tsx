@@ -426,7 +426,7 @@ export function ContactForm() {
           </div>
 
           {/* Maps Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
             {/* Google Maps iframe - Left */}
             <div className="group">
               <div className="mb-3">
@@ -474,6 +474,15 @@ export function ContactForm() {
                 ></iframe>
               </div>
             </div>
+          </div>
+
+          {/* Location Image */}
+          <div className="w-full rounded-lg overflow-hidden shadow-md border border-[#E0DDD6] mb-8">
+            <img
+              src="/other/location-img.webp"
+              alt="THU Furniture Location"
+              className="w-full h-auto object-cover max-h-[600px]"
+            />
           </div>
         </div>
       </div>
