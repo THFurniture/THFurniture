@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Navbar } from "~/layout/navbar";
 import { getCustomProductBySlug, getCustomProductsByCategory } from "~/data/custom-made-data";
 import { CustomProductCard } from "~/components/catalog/custom-product-card";
+import { Button } from "~/ui/button";
 import type { Route } from "./+types/custom-made.$slug";
 
 export function meta({ params }: Route.MetaArgs) {
@@ -48,7 +49,7 @@ export default function CustomProductPage() {
 
   const navigateLightbox = useCallback((direction: "prev" | "next") => {
     if (allImages.length === 0) return;
-    
+
     setLightboxIndex((currentIndex) => {
       let newIndex = currentIndex;
       if (direction === "prev") {
@@ -56,7 +57,7 @@ export default function CustomProductPage() {
       } else {
         newIndex = currentIndex === allImages.length - 1 ? 0 : currentIndex + 1;
       }
-      
+
       setLightboxImage(allImages[newIndex]);
       return newIndex;
     });
@@ -66,7 +67,7 @@ export default function CustomProductPage() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!lightboxImage) return;
-      
+
       if (e.key === "Escape") {
         setLightboxImage(null);
       } else if (e.key === "ArrowLeft") {
@@ -77,7 +78,7 @@ export default function CustomProductPage() {
         navigateLightbox("next");
       }
     };
-    
+
     if (lightboxImage) {
       document.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
@@ -176,7 +177,7 @@ export default function CustomProductPage() {
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.3 }}
                 />
-                
+
                 {/* Zoom indicator */}
                 <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity">
                   <svg className="w-5 h-5 text-[#2E2C2A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -225,17 +226,15 @@ export default function CustomProductPage() {
 
               {/* CTA */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  to={inquiryUrl}
-                  className="inline-flex items-center justify-center px-8 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors"
-                >
-                  Inquire About This Piece
+                <Link to={inquiryUrl}>
+                  <Button variant="primary" showArrow className="w-full sm:w-auto">
+                    Inquire About This Piece
+                  </Button>
                 </Link>
-                <Link
-                  to="/custom-made"
-                  className="inline-flex items-center justify-center px-8 py-3 border border-[#2E2C2A] text-[#2E2C2A] font-semibold hover:bg-[#F0EEE9] transition-colors"
-                >
-                  View Custom Collection
+                <Link to="/custom-made">
+                  <Button variant="outline" className="w-full sm:w-auto">
+                    View Custom Collection
+                  </Button>
                 </Link>
               </div>
             </div>
