@@ -1,5 +1,6 @@
 import { useFetcher, useSearchParams } from "react-router";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "~/ui/button";
 
 type ActionData = {
   success: boolean;
@@ -283,9 +284,9 @@ export function ContactForm() {
 
                     {/* Dropdown Menu */}
                     {isCountryDropdownOpen && (
-                      <div 
+                      <div
                         className="absolute z-50 top-full left-0 mt-1 w-56 bg-white border border-[#E0DDD6] rounded-lg shadow-lg max-h-60 overflow-y-auto overscroll-contain"
-                        style={{ 
+                        style={{
                           scrollBehavior: 'smooth',
                           WebkitOverflowScrolling: 'touch'
                         }}
@@ -305,11 +306,10 @@ export function ContactForm() {
                               setSelectedCountry(country);
                               setIsCountryDropdownOpen(false);
                             }}
-                            className={`w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-[#F9F7F4] transition-colors ${
-                              selectedCountry.country === country.country && selectedCountry.code === country.code
-                                ? "bg-[#F0EEE9]"
-                                : ""
-                            }`}
+                            className={`w-full flex items-center gap-3 px-3 py-2 text-left hover:bg-[#F9F7F4] transition-colors ${selectedCountry.country === country.country && selectedCountry.code === country.code
+                              ? "bg-[#F0EEE9]"
+                              : ""
+                              }`}
                           >
                             <span className="text-lg">{country.flag}</span>
                             <span className="flex-1 text-sm text-[#2E2C2A]">{country.label}</span>
@@ -358,14 +358,14 @@ export function ContactForm() {
 
               {/* Submit Button */}
               <div className="pt-6">
-                <button
+                <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full px-6 py-3 bg-[#2E2C2A] text-white font-semibold hover:bg-[#3A3935] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  className="w-full"
                 >
                   {isSubmitting ? (
                     <>
-                      <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <svg className="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                       </svg>
@@ -374,7 +374,7 @@ export function ContactForm() {
                   ) : (
                     "Send Message"
                   )}
-                </button>
+                </Button>
               </div>
             </fetcher.Form>
 
