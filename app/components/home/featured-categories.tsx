@@ -30,12 +30,11 @@ export function FeaturedCategories() {
             className="mt-6 md:mt-0 inline-flex items-center gap-2 text-[#6B6965] font-medium hover:text-[#2E2C2A] transition-colors border-b border-[#6B6965] hover:border-[#2E2C2A] pb-1"
           >
             View all categories
-            <span>→</span>
           </Link>
         </div>
 
         {/* Categories Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {categories.map((category) => (
             <Link
               key={category.id}

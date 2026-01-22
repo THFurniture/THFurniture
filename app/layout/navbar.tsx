@@ -1,113 +1,123 @@
 import { Link, useLocation } from "react-router";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0);
+      setIsScrolled(window.scrollY > 20);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close menu when route changes
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location]);
-
-  // Prevent scroll when menu is open
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+  const isActive = (path: string) => {
+    if (path === "/") {
+      return location.pathname === "/";
     }
-  }, [isOpen]);
+    return location.pathname.startsWith(path);
+  };
 
   const navLinks = [
-    { to: "/catalog", label: "View Collection", variant: "secondary" },
-    { to: "/custom-made", label: "Custom Made", variant: "secondary" },
-    { to: "/contact", label: "Inquire", variant: "primary" },
+    { to: "/", label: "Home" },
+    { to: "/catalog", label: "Collection" },
+    { to: "/custom-made", label: "Custom Made" },
+    { to: "/contact", label: "Contact" },
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled || isOpen ? 'bg-[#F9F7F4] border-b border-[#E0DDD6] shadow-lg' : 'bg-transparent'}`}>
-      <div className="max-w-7xl mx-auto px-6 py-4">
-        <div className="flex items-center justify-between">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/95 backdrop-blur-sm shadow-sm border-b border-[#E0DDD6]"
+          : "bg-transparent"
+      }`}
+    >
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center z-50">
             <img
               src="/logos/THU_logo_black.png"
-              alt="THU Furniture"
-              className="h-16 md:h-20 w-auto transition-all"
+              alt="THU Furniture Logo"
+              className="h-12 md:h-14 w-auto object-contain select-none transition-opacity hover:opacity-80"
             />
           </Link>
 
-          {/* Desktop Buttons */}
-          <div className="hidden md:flex items-center gap-4">
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                className={`px-4 py-2 text-sm font-semibold transition-all duration-200 cursor-pointer border border-[#2E2C2A] ${link.variant === "primary"
-                  ? "bg-[#2E2C2A] text-white hover:bg-[#3A3935] hover:border-[#3A3935]"
-                  : "bg-transparent text-[#2E2C2A] hover:bg-[#F0EEE9]"
-                  }`}
+                className={`text-sm font-medium tracking-wide transition-colors relative ${
+                  isActive(link.to)
+                    ? "text-[#2E2C2A]"
+                    : "text-[#6B6965] hover:text-[#2E2C2A]"
+                }`}
+              >
+                {link.label}
+                {isActive(link.to) && (
+                  <span className="absolute -bottom-1 left-0 right-0 h-0.5 bg-[#A0685F]"></span>
+                )}
+              </Link>
+            ))}
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="lg:hidden z-50 flex flex-col gap-1.5 p-2"
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`w-6 h-0.5 bg-[#2E2C2A] transition-all duration-300 ${
+                isMobileMenuOpen ? "rotate-45 translate-y-2" : ""
+              }`}
+            ></span>
+            <span
+              className={`w-6 h-0.5 bg-[#2E2C2A] transition-all duration-300 ${
+                isMobileMenuOpen ? "opacity-0" : ""
+              }`}
+            ></span>
+            <span
+              className={`w-6 h-0.5 bg-[#2E2C2A] transition-all duration-300 ${
+                isMobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
+              }`}
+            ></span>
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <div
+          className={`lg:hidden fixed top-20 left-0 right-0 bg-white border-b border-[#E0DDD6] transition-all duration-300 ${
+            isMobileMenuOpen
+              ? "opacity-100 visible translate-y-0"
+              : "opacity-0 invisible -translate-y-4"
+          }`}
+        >
+          <div className="px-6 py-6 space-y-4">
+            {navLinks.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`block text-base font-medium transition-colors ${
+                  isActive(link.to)
+                    ? "text-[#2E2C2A] border-l-2 border-[#A0685F] pl-4"
+                    : "text-[#6B6965] hover:text-[#2E2C2A] pl-4"
+                }`}
               >
                 {link.label}
               </Link>
             ))}
           </div>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden z-50 p-2 text-[#2E2C2A] hover:bg-[#F0EEE9] transition-colors rounded-sm"
-            aria-label="Toggle menu"
-          >
-            <div className="w-6 h-5 flex flex-col justify-between items-center relative">
-              <span className={`w-full h-0.5 bg-current transition-all duration-300 ${isOpen ? 'rotate-45 translate-y-[9px]' : ''}`} />
-              <span className={`w-full h-0.5 bg-current transition-all duration-300 ${isOpen ? 'opacity-0' : ''}`} />
-              <span className={`w-full h-0.5 bg-current transition-all duration-300 ${isOpen ? '-rotate-45 -translate-y-[9px]' : ''}`} />
-            </div>
-          </button>
         </div>
       </div>
-
-      {/* Mobile Menu Overlay */}
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="fixed inset-0 bg-[#F9F7F4] pt-32 px-6 md:hidden z-40 flex flex-col items-center"
-          >
-            <div className="flex flex-col items-center gap-8 w-full max-w-xs">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`w-full text-center px-8 py-4 text-lg font-semibold transition-all duration-200 border border-[#2E2C2A] ${link.variant === "primary"
-                    ? "bg-[#2E2C2A] text-white"
-                    : "bg-transparent text-[#2E2C2A]"
-                    }`}
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </nav>
   );
 }
-

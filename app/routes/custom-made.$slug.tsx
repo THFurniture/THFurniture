@@ -104,7 +104,7 @@ export default function CustomProductPage() {
               to="/custom-made"
               className="inline-flex text-[#2E2C2A] font-semibold border-b-2 border-[#2E2C2A] pb-1 hover:opacity-60 transition-opacity"
             >
-              ← Back to Custom Made
+              Back to Custom Made
             </Link>
           </div>
         </main>

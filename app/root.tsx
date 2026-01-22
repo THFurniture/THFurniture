@@ -31,8 +31,6 @@ export const links: Route.LinksFunction = () => [
 export const meta: Route.MetaFunction = () => {
   return [
     { title: "THU Furniture" },
-    { name: "viewport", content: "width=device-width, initial-scale=1" },
-    { charSet: "utf-8" },
     { name: "description", content: "Discover a curated collection of furniture that brings calm, elegance, and purpose to your space." },
     { property: "og:site_name", content: "THU Furniture" },
     { property: "og:type", content: "website" },
@@ -49,6 +47,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <head>
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <link rel="canonical" href={canonicalUrl} />
         <Links />

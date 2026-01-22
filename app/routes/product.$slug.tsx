@@ -117,7 +117,7 @@ export default function ProductPage() {
               to="/catalog"
               className="inline-flex text-[#2E2C2A] font-semibold border-b-2 border-[#2E2C2A] pb-1 hover:opacity-60 transition-opacity"
             >
-              ← Back to Catalog
+              Back to Catalog
             </Link>
           </div>
         </main>
