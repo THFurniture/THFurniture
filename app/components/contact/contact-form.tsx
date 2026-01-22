@@ -113,7 +113,7 @@ export function ContactForm() {
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-[#2E2C2A] mb-4 pt-10">
               Get in Touch
             </h1>
-            <p className="text-base text-[#A0685F] mb-8">
+            <p className="text-base text-[#2E2C2A] mb-8">
               Interested in a piece? Have a question about materials? We'd love to hear from you.
             </p>
 
@@ -131,7 +131,7 @@ export function ContactForm() {
                     <p className="font-serif font-semibold text-[#2E2C2A] text-lg">{productName}</p>
                     {fabricName && (
                       <p className="text-sm text-[#8B7355] mt-1">
-                        Fabric: {fabricName} <span className="text-[#A0685F]">({fabricCollection})</span>
+                        Fabric: {fabricName} <span className="text-[#2E2C2A]">({fabricCollection})</span>
                       </p>
                     )}
                   </div>
@@ -210,7 +210,7 @@ export function ContactForm() {
                     required
                     maxLength={50}
                     disabled={isSubmitting}
-                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
+                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#2E2C2A]/50 transition-colors disabled:opacity-50"
                   />
                 </div>
                 <div>
@@ -228,7 +228,7 @@ export function ContactForm() {
                     required
                     maxLength={50}
                     disabled={isSubmitting}
-                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
+                    className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#2E2C2A]/50 transition-colors disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -249,7 +249,7 @@ export function ContactForm() {
                   required
                   maxLength={254}
                   disabled={isSubmitting}
-                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#2E2C2A]/50 transition-colors disabled:opacity-50"
                 />
               </div>
 
@@ -273,7 +273,7 @@ export function ContactForm() {
                       <span className="text-lg">{selectedCountry.flag}</span>
                       <span className="text-sm font-medium">{selectedCountry.code}</span>
                       <svg
-                        className={`w-4 h-4 text-[#A0685F] transition-transform ${isCountryDropdownOpen ? "rotate-180" : ""}`}
+                        className={`w-4 h-4 text-[#2E2C2A] transition-transform ${isCountryDropdownOpen ? "rotate-180" : ""}`}
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -313,7 +313,7 @@ export function ContactForm() {
                           >
                             <span className="text-lg">{country.flag}</span>
                             <span className="flex-1 text-sm text-[#2E2C2A]">{country.label}</span>
-                            <span className="text-sm text-[#A0685F]">{country.code}</span>
+                            <span className="text-sm text-[#2E2C2A]">{country.code}</span>
                           </button>
                         ))}
                       </div>
@@ -328,7 +328,7 @@ export function ContactForm() {
                     placeholder="(555) 000-0000"
                     maxLength={15}
                     disabled={isSubmitting}
-                    className="flex-1 px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 transition-colors disabled:opacity-50"
+                    className="flex-1 px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#2E2C2A]/50 transition-colors disabled:opacity-50"
                   />
                 </div>
               </div>
@@ -351,9 +351,9 @@ export function ContactForm() {
                   minLength={10}
                   maxLength={2000}
                   disabled={isSubmitting}
-                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#A0685F]/50 resize-none transition-colors disabled:opacity-50"
+                  className="w-full px-0 py-2 border-b border-[#E0DDD6] focus:outline-none focus:border-[#2E2C2A] bg-transparent text-[#2E2C2A] placeholder-[#2E2C2A]/50 resize-none transition-colors disabled:opacity-50"
                 ></textarea>
-                <p className="text-xs text-[#A0685F]/70 mt-1">10-2000 characters</p>
+                <p className="text-xs text-[#2E2C2A]/70 mt-1">10-2000 characters</p>
               </div>
 
               {/* Submit Button */}
@@ -386,13 +386,13 @@ export function ContactForm() {
               <div className="space-y-2">
                 <a
                   href="mailto:hellothufurniture@gmail.com"
-                  className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
+                  className="text-sm text-[#2E2C2A] hover:opacity-70 transition-colors block"
                 >
                   hellothufurniture@gmail.com
                 </a>
                 <a
                   href="tel:7785806609"
-                  className="text-sm text-[#A0685F] hover:text-[#2E2C2A] transition-colors block"
+                  className="text-sm text-[#2E2C2A] hover:opacity-70 transition-colors block"
                 >
                   778 580 6609
                 </a>
@@ -404,7 +404,7 @@ export function ContactForm() {
               <h3 className="text-lg font-serif font-bold text-[#2E2C2A] mb-4">
                 Hours
               </h3>
-              <p className="text-sm text-[#A0685F]">
+              <p className="text-sm text-[#2E2C2A]">
                 Monday - Friday: 10:00 - 5:00 pm <br />by Appointment only
               </p>
             </div>
@@ -420,24 +420,27 @@ export function ContactForm() {
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-[#2E2C2A] mb-3">
               Visit Us
             </h2>
-            <p className="text-base text-[#A0685F] max-w-2xl mx-auto">
+            <p className="text-base text-[#2E2C2A] max-w-2xl mx-auto">
               3870 Jacombs Rd #101, Richmond, BC V6V 1Y6, Canada
             </p>
           </div>
 
           {/* Maps Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12">
-            {/* Google Maps iframe - Left */}
-            <div className="group">
-              <div className="mb-3">
-                <h3 className="text-lg font-serif font-semibold text-[#2E2C2A]">
-                  Map View
-                </h3>
-                <p className="text-sm text-[#A0685F] mt-1">
-                  See our location on the map
-                </p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-12">
+            {/* Image - Left (2/3 width) */}
+            <div className="md:col-span-2 group">
+              <div className="w-full aspect-[3/2] rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 border border-[#E0DDD6]">
+                <img
+                  src="/other/location-img.webp"
+                  alt="THU Furniture Showroom"
+                  className="w-full h-full object-cover"
+                />
               </div>
-              <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 border border-[#E0DDD6]">
+            </div>
+
+            {/* Google Maps iframe - Right (1/3 width) */}
+            <div className="group">
+              <div className="w-full h-full min-h-[400px] rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 border border-[#E0DDD6]">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2607.7847618627898!2d-123.0809163236744!3d49.18567077137841!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x5486750a847a09c1%3A0x98ee601e4222d993!2s3870%20Jacombs%20Rd%20%23101%2C%20Richmond%2C%20BC%20V6V%201Y6%2C%20Canad%C3%A1!5e0!3m2!1ses-419!2smx!4v1766521827577!5m2!1ses-419!2smx"
                   width="100%"
@@ -450,39 +453,6 @@ export function ContactForm() {
                 ></iframe>
               </div>
             </div>
-
-            {/* Google Maps iframe - Right */}
-            <div className="group">
-              <div className="mb-3">
-                <h3 className="text-lg font-serif font-semibold text-[#2E2C2A]">
-                  Street View
-                </h3>
-                <p className="text-sm text-[#A0685F] mt-1">
-                  Explore the area around our location
-                </p>
-              </div>
-              <div className="w-full h-[400px] md:h-[500px] rounded-lg overflow-hidden shadow-md group-hover:shadow-xl transition-all duration-300 border border-[#E0DDD6]">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!3m2!1ses-419!2smx!4v1766521753296!5m2!1ses-419!2smx!6m8!1m7!1ssbcWf_NWHr34wthn7OZ_3Q!2m2!1d49.18565403265792!2d-123.0779263951254!3f280.96181390141993!4f2.604501796292226!5f0.4000000000000002"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="w-full h-full"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-
-          {/* Location Image */}
-          <div className="w-full rounded-lg overflow-hidden shadow-md border border-[#E0DDD6] mb-8">
-            <img
-              src="/other/location-img.webp"
-              alt="THU Furniture Location"
-              className="w-full h-auto object-cover max-h-[600px]"
-            />
           </div>
         </div>
       </div>
