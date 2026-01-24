@@ -75,7 +75,7 @@ export const products: Product[] = [
     category: "seating",
     description: "The Ethan Armchair brings modern comfort into a sculptural, contemporary silhouette. With its rounded base and enveloping curves, this chair offers deep seating that feels exceptionally comfortable, making it the perfect spot to unwind. The gently raised back provides good back support, creating a balanced, supportive feel without compromising its clean and minimalist design.\nAvailable in two sizes — Medium or Large — the Ethan adapts beautifully to different room layouts, whether used as a statement piece or paired in multiples. Its smooth, seamless design can be tailored to any space with a wide variation of customization options, including premium fabric, supple leather, or a combination of both.\nThoughtfully crafted with an eye for soft geometry and modern elegance, the Ethan Armchair brings a refined presence to any interior. Versatile, stylish, and deeply inviting, it's a piece that effortlessly elevates contemporary living.",
     dimensions: "3'Diam x 2'5\"H",
-    images: generateImages("ethan_arm_chair", 1),
+    images: generateImages("ethan_arm_chair", 4),
   },
   {
     slug: "hannah_sofa",
@@ -83,7 +83,7 @@ export const products: Product[] = [
     category: "sofas",
     description: "The Hannah Sofa is designed with a low-profile silhouette that brings a calm, modern presence to any living space. Built with a very strong frame and base, it offers exceptional durability while maintaining a refined, contemporary look. Its proportions are thoughtfully balanced, making it comfortable for both big and small people.\nThe seating cushions are removable and easy to handle, allowing for simple cleaning or quick updates. With a wide variation of fabrics to choose from, the Hannah Sofa can be fully customized—including unique combinations of leather and fabric for a tailored, elevated finish.\nThe wide armrests add versatility to the design, functioning as a side table, display surface, or extra seating area when needed. Clean, understated, and adaptable, the Hannah Sofa brings both beauty and practicality to everyday living.",
     dimensions: "11'-3 1/2\" W x 3'4\" D x 2'5\" H",
-    images: generateImages("hannah_sofa", 2),
+    images: generateImages("hannah_sofa", 5),
   },
   {
     slug: "jade_side_table",
@@ -218,13 +218,13 @@ export function getProductBySlug(slug: string): Product | undefined {
 export function getAllProducts(): Product[] {
   // Define el orden de las categorías: sofas, seating, ottomans, tables, beds
   const categoryOrder: Category[] = ["sofas", "seating", "ottomans", "tables", "beds"];
-  
+
   // Crear un mapa de orden de categorías
   const categoryOrderMap = new Map<Category, number>();
   categoryOrder.forEach((cat, index) => {
     categoryOrderMap.set(cat, index);
   });
-  
+
   // Ordenar productos por categoría
   return [...products].sort((a, b) => {
     const orderA = categoryOrderMap.get(a.category) ?? 999;

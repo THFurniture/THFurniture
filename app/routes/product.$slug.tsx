@@ -7,6 +7,7 @@ import { ProductCard } from "~/components/catalog/product-card";
 import { FabricSelector } from "~/components/product/fabric-selector";
 import { fabrics, type Fabric } from "~/data/fabric-data";
 import { Button } from "~/ui/button";
+import { Breadcrumb } from "~/components/shared/breadcrumb";
 import type { Route } from "./+types/product.$slug";
 
 export function meta({ params }: Route.MetaArgs) {
@@ -145,35 +146,13 @@ export default function ProductPage() {
       <main className="min-h-screen bg-[#F9F7F4] pt-24">
         <div className="max-w-7xl mx-auto px-6 py-12">
           {/* Breadcrumb */}
-          <nav className="mb-8">
-            <ol className="flex items-center gap-2 text-sm text-[#6B6965]">
-              <li>
-                <Link to="/" className="hover:text-[#2E2C2A] transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>/</li>
-              <li>
-                <Link
-                  to="/catalog"
-                  className="hover:text-[#2E2C2A] transition-colors"
-                >
-                  Catalog
-                </Link>
-              </li>
-              <li>/</li>
-              <li>
-                <Link
-                  to={`/catalog?category=${product.category}`}
-                  className="hover:text-[#2E2C2A] transition-colors capitalize"
-                >
-                  {product.category}
-                </Link>
-              </li>
-              <li>/</li>
-              <li className="text-[#2E2C2A]">{product.name}</li>
-            </ol>
-          </nav>
+          <Breadcrumb
+            items={[
+              { label: "Catalog", href: "/catalog" },
+              { label: product.category, href: `/catalog?category=${product.category}` },
+              { label: product.name },
+            ]}
+          />
 
           {/* Product Section */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-20">
